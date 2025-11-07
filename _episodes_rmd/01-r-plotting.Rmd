@@ -866,6 +866,11 @@ So far we've looked at two plot types (`geom_point` and `geom_line`) which work 
 
 We are going to read in one more dataset to practice some new plot types. This time, we'll work with **nutrient** data from the reserve, which requires monthly sampling and laboratory analysis. 
 
+```{r ImportNutrients, include=FALSE}
+# required for below code chunks to work.
+september_nutrients <- read_csv("../data/september_nutrients.csv")
+```
+
 > ## Read in more data
 >
 > What argument should be provided in the below code to read in the full dataset?
@@ -876,7 +881,7 @@ We are going to read in one more dataset to practice some new plot types. This t
 >
 > > ## Solution
 > >
-> > ```{r ImportFullDataSolutionEcho, eval = FALSE}
+> > ```{r ImportFullDataSolutionEcho3, eval = FALSE}
 > > september_nutrients <- read_csv("september_nutrients.csv")
 > > ```
 > {: .solution}
@@ -885,9 +890,7 @@ We are going to read in one more dataset to practice some new plot types. This t
 Let's look at our new dataset. 
 
 ```{r look_nutrients}
-
 head(september_nutrients)
-
 ```
 
 This dataset contains nutrient values from 2021-2023 taken in September at each station. We have orthophosphate (`PO4`, in mg/L as P), ammonium (`NH4`, in mg/L as N), nitrite/nitrate (`NOx`, in mg/L as N), and Chlorophyll-a (`Chl_a`, in ug/L). 

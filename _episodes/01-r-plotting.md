@@ -177,13 +177,13 @@ library(tidyverse)
 
 
 ~~~
-── Attaching core tidyverse packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 2.0.0 ──
+── Attaching core tidyverse packages ────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.4     ✔ readr     2.1.5
 ✔ forcats   1.0.1     ✔ stringr   1.6.0
 ✔ ggplot2   4.0.0     ✔ tibble    3.3.0
 ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
 ✔ purrr     1.2.0     
-── Conflicts ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+── Conflicts ──────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()
 ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
@@ -243,7 +243,7 @@ water_quality <- read_csv("water_quality.csv")
 
 ~~~
 Rows: 306 Columns: 9
-── Column specification ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+── Column specification ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 Delimiter: ","
 chr (1): Station
 dbl (8): Year, DayofYear, Temp, Conductivity, DO, pH, Turbidity, ChlFluor
@@ -1089,6 +1089,8 @@ So far we've looked at two plot types (`geom_point` and `geom_line`) which work 
 
 We are going to read in one more dataset to practice some new plot types. This time, we'll work with **nutrient** data from the reserve, which requires monthly sampling and laboratory analysis. 
 
+
+
 > ## Read in more data
 >
 > What argument should be provided in the below code to read in the full dataset?
@@ -1120,9 +1122,17 @@ head(september_nutrients)
 
 
 ~~~
-Error: object 'september_nutrients' not found
+# A tibble: 6 × 6
+  Station  Year   PO4   NH4   NOx Chl_a
+  <chr>   <dbl> <dbl> <dbl> <dbl> <dbl>
+1 Barkers  2021 0.006 0.034 0.142  28.9
+2 Barkers  2021 0.006 0.033 0.173  33.2
+3 Barkers  2021 0.006 0.015 0.142  33.2
+4 Barkers  2021 0.006 0.013 0.126  34.8
+5 Barkers  2021 0.006 0.01  0.132  37.8
+6 Barkers  2021 0.006 0.015 0.147  40.8
 ~~~
-{: .error}
+{: .output}
 
 This dataset contains nutrient values from 2021-2023 taken in September at each station. We have orthophosphate (`PO4`, in mg/L as P), ammonium (`NH4`, in mg/L as N), nitrite/nitrate (`NOx`, in mg/L as N), and Chlorophyll-a (`Chl_a`, in ug/L). 
 
@@ -1143,9 +1153,11 @@ We've previously used the discrete values of the `Station` column to color our p
 > > 
 > > 
 > > ~~~
-> > Error: object 'september_nutrients' not found
+> > Warning: Removed 1 row containing non-finite outside the scale range (`stat_boxplot()`).
 > > ~~~
-> > {: .error}
+> > {: .warning}
+> > 
+> > <img src="../fig/rmd-01-GapBox-1.png" width="540" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
@@ -1166,9 +1178,11 @@ This type of visualization makes it easy to compare the range and spread of valu
 > > 
 > > 
 > > ~~~
-> > Error: object 'september_nutrients' not found
+> > Warning: Removed 1 row containing non-finite outside the scale range (`stat_ydensity()`).
 > > ~~~
-> > {: .error}
+> > {: .warning}
+> > 
+> > <img src="../fig/rmd-01-GapViol-1.png" width="540" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
@@ -1188,9 +1202,11 @@ ggplot(data = september_nutrients) +
 
 
 ~~~
-Error: object 'september_nutrients' not found
+Warning: Removed 1 row containing non-finite outside the scale range (`stat_boxplot()`).
 ~~~
-{: .error}
+{: .warning}
+
+<img src="../fig/rmd-01-GapViolin-1.png" width="540" style="display: block; margin: auto;" />
 
 Box plots are a great way to see the overall spread of your data. However, it is good practice to also give your reader as sense of how many observations have gone into your boxplots. To do so, we can plot each observation as an individual point, on top of the boxplot.
 
@@ -1206,9 +1222,18 @@ ggplot(data = september_nutrients) +
 
 
 ~~~
-Error: object 'september_nutrients' not found
+Warning: Removed 1 row containing non-finite outside the scale range (`stat_boxplot()`).
 ~~~
-{: .error}
+{: .warning}
+
+
+
+~~~
+Warning: Removed 1 row containing missing values or values outside the scale range (`geom_point()`).
+~~~
+{: .warning}
+
+<img src="../fig/rmd-01-GapViolinPoints-1.png" width="540" style="display: block; margin: auto;" />
 
 Ok, we've drawn the points but most of them stack up on top of each other. One way to make it easier to see all the data is to "jitter" the points, or move them around randomly so they don't stack up on top of each other. To do this, we use `geom_jitter` rather than `geom_point`
 
@@ -1224,9 +1249,18 @@ ggplot(data = september_nutrients) +
 
 
 ~~~
-Error: object 'september_nutrients' not found
+Warning: Removed 1 row containing non-finite outside the scale range (`stat_boxplot()`).
 ~~~
-{: .error}
+{: .warning}
+
+
+
+~~~
+Warning: Removed 1 row containing missing values or values outside the scale range (`geom_point()`).
+~~~
+{: .warning}
+
+<img src="../fig/rmd-01-GapViolinJitter-1.png" width="540" style="display: block; margin: auto;" />
 
 Be aware that these movements are random so your plot will look a bit different each time you run it!
 
@@ -1244,9 +1278,18 @@ ggplot(data = september_nutrients) +
 
 
 ~~~
-Error: object 'september_nutrients' not found
+Warning: Removed 1 row containing non-finite outside the scale range (`stat_boxplot()`).
 ~~~
-{: .error}
+{: .warning}
+
+
+
+~~~
+Warning: Removed 1 row containing missing values or values outside the scale range (`geom_point()`).
+~~~
+{: .warning}
+
+<img src="../fig/rmd-01-GapViolinJitterLayers-1.png" width="540" style="display: block; margin: auto;" />
 
 Since we plot the `geom_jitter` layer first, the  boxplot layer is placed on top of the `geom_jitter` layer, so we cannot see most of the points.
 
@@ -1263,9 +1306,18 @@ ggplot(data = september_nutrients, mapping = aes(x = Station, y = Chl_a)) +
 
 
 ~~~
-Error: object 'september_nutrients' not found
+Warning: Removed 1 row containing non-finite outside the scale range (`stat_boxplot()`).
 ~~~
-{: .error}
+{: .warning}
+
+
+
+~~~
+Warning: Removed 1 row containing missing values or values outside the scale range (`geom_point()`).
+~~~
+{: .warning}
+
+<img src="../fig/rmd-01-GapViolinJitter2-1.png" width="540" style="display: block; margin: auto;" />
 
 However, we can also use aesthetic values for only one layer of our plot. To do that, you an place an additional `aes()` inside of that layer. For example, what if we want to change the size for the points so they are scaled by phosphate, but we don't want to change the box plot? We can do:
 
@@ -1281,9 +1333,18 @@ ggplot(data = september_nutrients) +
 
 
 ~~~
-Error: object 'september_nutrients' not found
+Warning: Removed 1 row containing non-finite outside the scale range (`stat_boxplot()`).
 ~~~
-{: .error}
+{: .warning}
+
+
+
+~~~
+Warning: Removed 1 row containing missing values or values outside the scale range (`geom_point()`).
+~~~
+{: .warning}
+
+<img src="../fig/rmd-01-GapViolinJitterAes-1.png" width="540" style="display: block; margin: auto;" />
 
 Both `geom_boxplot` and `geom_jitter` will inherit the default values of `aes(Station, Chl_a)` but only `geom_jitter` will also use `aes(size = PO4)`.
 
@@ -1331,9 +1392,11 @@ ggplot(data = september_nutrients) +
 
 
 ~~~
-Error: object 'september_nutrients' not found
+Warning: Removed 1 row containing non-finite outside the scale range (`stat_boxplot()`).
 ~~~
-{: .error}
+{: .warning}
+
+<img src="../fig/rmd-01-GapViolinColor-1.png" width="540" style="display: block; margin: auto;" />
 
 Well, that didn't get all that colorful. That's because objects like these boxplots have two different parts that have a color: the shape outline, and the inner part of the shape. For geoms that have an inner part, you change the fill color with `fill=` rather than `color=`, so let's try that instead
 
@@ -1348,9 +1411,11 @@ ggplot(data = september_nutrients) +
 
 
 ~~~
-Error: object 'september_nutrients' not found
+Warning: Removed 1 row containing non-finite outside the scale range (`stat_boxplot()`).
 ~~~
-{: .error}
+{: .warning}
+
+<img src="../fig/rmd-01-GapViolinFill-1.png" width="540" style="display: block; margin: auto;" />
 
 That's some plot now isn't it! So "pink" maybe wasn't the prettiest color. R knows lots of color names. You can see the full list if you run `colors()` in the console. Since there are so many, you can randomly choose 10 if you run `sample(colors(), size = 10)`.
 
@@ -1372,9 +1437,11 @@ ggplot(data = september_nutrients) +
 
 
 ~~~
-Error: object 'september_nutrients' not found
+Warning: Removed 1 row containing non-finite outside the scale range (`stat_boxplot()`).
 ~~~
-{: .error}
+{: .warning}
+
+<img src="../fig/rmd-01-GapViolinFillMap-1.png" width="540" style="display: block; margin: auto;" />
 
 But what if we want to specify specific colors for our plots? The colors that
 ggplot uses are determined by the color "scale". Each aesthetic value we can
@@ -1393,9 +1460,11 @@ ggplot(data = september_nutrients) +
 
 
 ~~~
-Error: object 'september_nutrients' not found
+Warning: Removed 1 row containing non-finite outside the scale range (`stat_boxplot()`).
 ~~~
-{: .error}
+{: .warning}
+
+<img src="../fig/rmd-01-GapViolinFillMan-1.png" width="540" style="display: block; margin: auto;" />
 
 Sometimes manually choosing colors is frustrating. There are many packages which produce pre-made palettes which you can supply to your data. A common one is `RColorBrewer`. We can use the palettes from RColorBrewer using the `scale_color_brewer` function. 
 
@@ -1411,9 +1480,11 @@ ggplot(data = september_nutrients) +
 
 
 ~~~
-Error: object 'september_nutrients' not found
+Warning: Removed 1 row containing non-finite outside the scale range (`stat_boxplot()`).
 ~~~
-{: .error}
+{: .warning}
+
+<img src="../fig/rmd-01-GapViolinFillBrew-1.png" width="540" style="display: block; margin: auto;" />
 
 The `scale_color_brewer()` function is just one of many you can use to change
 colors. There are bunch of "palettes" that are built-in. You can view them all
@@ -1451,9 +1522,11 @@ There are also lots of other fun options:
 > > 
 > > 
 > > ~~~
-> > Error: object 'september_nutrients' not found
+> > Warning: Removed 1 row containing non-finite outside the scale range (`stat_boxplot()`).
 > > ~~~
-> > {: .error}
+> > {: .warning}
+> > 
+> > <img src="../fig/rmd-01-Color-1.png" width="540" style="display: block; margin: auto;" />
 > > {: .source}
 > {: .solution}
 {: .challenge}
@@ -1472,9 +1545,11 @@ There are also lots of other fun options:
 > > 
 > > 
 > > ~~~
-> > Error: object 'september_nutrients' not found
+> > Warning: Removed 1 row containing non-finite outside the scale range (`stat_boxplot()`).
 > > ~~~
-> > {: .error}
+> > {: .warning}
+> > 
+> > <img src="../fig/rmd-01-GapViolinFillSoln-1.png" width="540" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
@@ -1491,9 +1566,11 @@ There are also lots of other fun options:
 > 
 > 
 > ~~~
-> Error: object 'september_nutrients' not found
+> Warning: Removed 1 row containing non-finite outside the scale range (`stat_boxplot()`).
 > ~~~
-> {: .error}
+> {: .warning}
+> 
+> <img src="../fig/rmd-01-GapViolinAesFillMap-1.png" width="540" style="display: block; margin: auto;" />
 > Why doesn't this work? How can you fix it? Where does that color come from?
 >
 > > ## Solution
@@ -1517,9 +1594,18 @@ ggplot(september_nutrients) +
 
 
 ~~~
-Error: object 'september_nutrients' not found
+`stat_bin()` using `bins = 30`. Pick better value `binwidth`.
 ~~~
-{: .error}
+{: .output}
+
+
+
+~~~
+Warning: Removed 1 row containing non-finite outside the scale range (`stat_bin()`).
+~~~
+{: .warning}
+
+<img src="../fig/rmd-01-GapLifeHist-1.png" width="540" style="display: block; margin: auto;" />
 
 You should not only see the plot in the plot window, but also a message telling you to choose a better bin value. Histograms can look very different depending on the number of bars you decide to draw. The default is 30. Let's try setting a different value by explicitly passing a `bin=` argument to the `geom_histogram` later.
 
@@ -1534,9 +1620,11 @@ ggplot(september_nutrients) +
 
 
 ~~~
-Error: object 'september_nutrients' not found
+Warning: Removed 1 row containing non-finite outside the scale range (`stat_bin()`).
 ~~~
-{: .error}
+{: .warning}
+
+<img src="../fig/rmd-01-GapLifeHistBins-1.png" width="540" style="display: block; margin: auto;" />
 
 Try different values like 5 or 50 to see how the plot changes.
 
@@ -1555,9 +1643,11 @@ Try different values like 5 or 50 to see how the plot changes.
 > > 
 > > 
 > > ~~~
-> > Error: object 'september_nutrients' not found
+> > Warning: Removed 1 row containing non-finite outside the scale range (`stat_density()`).
 > > ~~~
-> > {: .error}
+> > {: .warning}
+> > 
+> > <img src="../fig/rmd-01-GapLifeDens1-1.png" width="540" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
@@ -1576,9 +1666,11 @@ Try different values like 5 or 50 to see how the plot changes.
 > > 
 > > 
 > > ~~~
-> > Error: object 'september_nutrients' not found
+> > Warning: Removed 1 row containing non-finite outside the scale range (`stat_density()`).
 > > ~~~
-> > {: .error}
+> > {: .warning}
+> > 
+> > <img src="../fig/rmd-01-GapLifeDens2-1.png" width="540" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
@@ -1600,9 +1692,11 @@ ggplot(data = september_nutrients) +
 
 
 ~~~
-Error: object 'september_nutrients' not found
+Warning: Removed 1 row containing non-finite outside the scale range (`stat_boxplot()`).
 ~~~
-{: .error}
+{: .warning}
+
+<img src="../fig/rmd-01-GapLifeHistBinsClassicTheme-1.png" width="540" style="display: block; margin: auto;" />
 
 Try out a few other themes, to see which you like: `theme_bw()`, `theme_linedraw()`, `theme_minimal()`.
 
@@ -1622,9 +1716,11 @@ Try out a few other themes, to see which you like: `theme_bw()`, `theme_linedraw
 > > 
 > > 
 > > ~~~
-> > Error: object 'september_nutrients' not found
+> > Warning: Removed 1 row containing non-finite outside the scale range (`stat_boxplot()`).
 > > ~~~
-> > {: .error}
+> > {: .warning}
+> > 
+> > <img src="../fig/rmd-01-GapLifeDens3-1.png" width="540" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
@@ -1660,16 +1756,23 @@ ggsave("awesome_plot.jpg", width=6, height=4)
 > > 
 > > 
 > > ~~~
-> > Error: object 'september_nutrients' not found
+> > Warning: Removed 1 row containing non-finite outside the scale range (`stat_bin()`).
 > > ~~~
-> > {: .error}
+> > {: .warning}
 > > 
-> > 
+> > <img src="../fig/rmd-01-savingPlotExercise-1.png" width="540" style="display: block; margin: auto;" />
 > > 
 > > ~~~
 > > ggsave("awesome_histogram.jpg", width=6, height=4)
 > > ~~~
 > > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Warning: Removed 1 row containing non-finite outside the scale range (`stat_bin()`).
+> > ~~~
+> > {: .warning}
 > >
 > > Check your current working directory to find the plot!
 > {: .solution}
@@ -1685,13 +1788,6 @@ box_plot <- ggplot(data = september_nutrients) +
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error: object 'september_nutrients' not found
-~~~
-{: .error}
-
 Now if we want to see our plot again, we can just run:
 
 
@@ -1703,9 +1799,11 @@ box_plot
 
 
 ~~~
-Error: object 'box_plot' not found
+Warning: Removed 1 row containing non-finite outside the scale range (`stat_boxplot()`).
 ~~~
-{: .error}
+{: .warning}
+
+<img src="../fig/rmd-01-outputViolinPlot-1.png" width="540" style="display: block; margin: auto;" />
 
 We can also add changes to the plot. Let's say we want our boxplot to have the black-and-white theme:
 
@@ -1718,9 +1816,11 @@ box_plot + theme_bw()
 
 
 ~~~
-Error: object 'box_plot' not found
+Warning: Removed 1 row containing non-finite outside the scale range (`stat_boxplot()`).
 ~~~
-{: .error}
+{: .warning}
+
+<img src="../fig/rmd-01-violinPlotBWTheme-1.png" width="540" style="display: block; margin: auto;" />
 
 Watch out! Adding the theme does not change the `box_plot` object! If we want to change the object, we need to store our changes:
 
@@ -1733,27 +1833,15 @@ box_plot
 
 
 ~~~
-Error: object 'box_plot' not found
+Warning: Removed 1 row containing non-finite outside the scale range (`stat_boxplot()`).
 ~~~
-{: .error}
+{: .warning}
 
-
+<img src="../fig/rmd-01-violinPlotBWThemeUpdated-1.png" width="540" style="display: block; margin: auto;" />
 
 ~~~
 box_plot <- box_plot + theme_bw()
-~~~
-{: .language-r}
 
-
-
-~~~
-Error: object 'box_plot' not found
-~~~
-{: .error}
-
-
-
-~~~
 box_plot
 ~~~
 {: .language-r}
@@ -1761,9 +1849,11 @@ box_plot
 
 
 ~~~
-Error: object 'box_plot' not found
+Warning: Removed 1 row containing non-finite outside the scale range (`stat_boxplot()`).
 ~~~
-{: .error}
+{: .warning}
+
+<img src="../fig/rmd-01-violinPlotBWThemeUpdated-2.png" width="540" style="display: block; margin: auto;" />
 
 We can also save any plot object we have named, even if they were not the plot that we ran most recently. We just have to tell `ggsave()` which plot we want to save:
 
@@ -1784,19 +1874,7 @@ ggsave("awesome_box_plot.jpg", plot = box_plot, width=6, height=4)
 > >   geom_boxplot(fill = "orange")+
 > >   theme_bw()+
 > >   labs(x = "Station", y = "NH4 (mg/L as N)")
-> > ~~~
-> > {: .language-r}
 > > 
-> > 
-> > 
-> > ~~~
-> > Error: object 'september_nutrients' not found
-> > ~~~
-> > {: .error}
-> > 
-> > 
-> > 
-> > ~~~
 > > ggsave("my_awesome_plot.jpg", plot = my_plot, width=6, height=4)
 > > ~~~
 > > {: .language-r}
@@ -1804,9 +1882,9 @@ ggsave("awesome_box_plot.jpg", plot = box_plot, width=6, height=4)
 > > 
 > > 
 > > ~~~
-> > Error: object 'my_plot' not found
+> > Warning: Removed 1 row containing non-finite outside the scale range (`stat_boxplot()`).
 > > ~~~
-> > {: .error}
+> > {: .warning}
 > {: .solution}
 {: .challenge}
 
