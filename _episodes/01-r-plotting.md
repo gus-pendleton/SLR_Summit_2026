@@ -53,16 +53,16 @@ editor_options:
 > ## Bonus: why learn to program?
 > Share why you're interested in learning how to code.
 > > ## Solution:
-> > There are lots of different reasons, including to perform data analysis and generate figures. I'm sure you have more specific reasons for why you'd like to learn! Add a 
+> > There are lots of different reasons, including to perform data analysis and generate figures. I'm sure you have more specific reasons for why you'd like to learn! Add a line to your introduction explaining your motivation to learn to code.
 > {: .solution}
 {: .challenge}
 
 # Introduction to R and RStudio
 _[Back to top](#contents)_
 
-Over this workshop, we will be working with data from the Schmidt Lab, here at Cornell. They collected microbial samples across Lake Ontario on the US EPA *RV Lake Guardian*. They want to understand how environmental conditions in the lake (things like temperature and nutrients) affect the abundance of different bacterial taxa. 
+Over this workshopm we will be working with data gathered by the Lake Superior National Estuarine Research Reserve (LSNERR), as part of their system-wide monitoring program (SWMP). SWMP encompasses frequent and high-quality water quality, weather, nutrient, and wetland plant community data, and is **always** publicly available. You can access SWMP data here. For this workshop, we'll work with a subset of these data, to analyse trends in water quality across the estuary. 
 
-To test this hypothesis, we'll need two things: data and a platform to analyze the data.
+To do this, we'll need two things: data and a platform to analyze the data.
 
 You already [downloaded the data]({{ page.root }}/setup.html). But what platform will we use to analyze the data? We have many options!
 
@@ -123,7 +123,7 @@ When the smaller window opens, select "Existing Directory" and then the "Browse"
 
 <img src="{{ page.root }}/fig/r-plotting/browse.png" width="600"/>
 
-Navigate to the directory that contains your code and data from the setup instructions and click the "Open" button. Note that in the screenshots below, this folder says "un-report" - for us, it should say "ontario-report".
+Navigate to the directory that contains your code and data from the setup instructions and click the "Open" button. Note that in the screenshots below, this folder says "un-report" - for us, it should say "nerr_data".
 
 <img src="{{ page.root }}/fig/r-plotting/navigate_to_project.png" width="600"/>
 
@@ -135,7 +135,7 @@ Did you notice anything change?
 
 In the lower right corner of your RStudio session, you should notice that your
 Files tab is now your project directory. You'll also see a file called
-ontario-report.Rproj in that directory.
+nerr_data.Rproj in that directory.
 
 From now on, you should start RStudio by double clicking on that file. This will
 make sure you are in the correct directory when you run your analysis.
@@ -177,20 +177,13 @@ library(tidyverse)
 
 
 ~~~
-Warning: package 'lubridate' was built under R version 4.3.3
-~~~
-{: .warning}
-
-
-
-~~~
-── Attaching core tidyverse packages ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 2.0.0 ──
+── Attaching core tidyverse packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.4     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ forcats   1.0.1     ✔ stringr   1.6.0
+✔ ggplot2   4.0.0     ✔ tibble    3.3.0
 ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
-✔ purrr     1.0.2     
-── Conflicts ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+✔ purrr     1.2.0     
+── Conflicts ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()
 ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
@@ -229,7 +222,7 @@ Warning: package 'lubridate' was built under R version 4.3.3
 >
 > Those of us that use R on a daily basis use cheat sheets to help us remember how to use various R functions.
 >
-> You can find them in RStudio by going to the "Help" menu and selecting "Cheat Sheets". The four that will be most helpful in this workshop are "Data Visualization with ggplot2", "Data Transformation with dplyr", "R Markdown Cheat Sheet", and "R Markdown Reference Guide".
+> You can find them in RStudio by going to the "Help" menu and selecting "Cheat Sheets". The one that will be most helpful in this workshop are "Data Visualization with ggplot2".
 >
 > For things that aren't on the cheat sheets, [Google is your best friend]({{ page.root }}/06-conclusion/). Even expert coders use Google when they're stuck or trying something new!
 >
@@ -240,20 +233,20 @@ Warning: package 'lubridate' was built under R version 4.3.3
 # Loading and reviewing data
 _[Back to top](#contents)_
 
-We will import a file containing data from Ontario samples called `sample_data.csv`. We will import it into R using a function from the tidyverse called `read_csv`:
+We will import a file containing data from Ontario samples called `water_quality.csv`. We will import it into R using a function from the tidyverse called `read_csv`:
 
 
 ~~~
-sample_data <- read_csv("sample_data.csv")
+water_quality <- read_csv("water_quality.csv")
 ~~~
 {: .language-r}
 
 ~~~
-Rows: 71 Columns: 9
-── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Rows: 306 Columns: 9
+── Column specification ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 Delimiter: ","
-chr (2): sample_id, env_group
-dbl (7): depth, cells_per_ml, temperature, total_nitrogen, total_phosphorus, diss_org_carbon, chlorophyll
+chr (1): Station
+dbl (8): Year, DayofYear, Temp, Conductivity, DO, pH, Turbidity, ChlFluor
 
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
@@ -262,22 +255,18 @@ dbl (7): depth, cells_per_ml, temperature, total_nitrogen, total_phosphorus, dis
 
 > ## `read_csv` vs. `read.csv`
 >
-> When you began typing the `read_csv` command, a very similarly named function, `read.csv`, may have popped up. These commands both do the same thing - they read in data from .csv files. The `read.csv` function is from "base" R (the packages and code that is automatically loaded), while `read_csv` is from the `readr` package in the tidyverse. They are very similar and are often interchangeable. The way they print data tables in the console is different, though, as is how they handle messier data tables. In later lessons, these functions **won't** be interchangeable for us. So to keep us consistent, please confirm that you are using `read_csv`.
+> When you began typing the `read_csv` command, a very similarly named function, `read.csv`, may have popped up. These commands both do the same thing - they read in data from .csv files. The `read.csv` function is from "base" R (the packages and code that is automatically loaded), while `read_csv` is from the `readr` package in the tidyverse. They are very similar and are often interchangeable. The way they print data tables in the console is different, though, as is how they handle messier data tables. In this lesson, these functions **won't** be interchangeable for us. So to keep us consistent, please confirm that you are using `read_csv`.
 >
 {: .callout}
 
 
-Look at the "Environment" tab. Here you will see a list of all the objects you've created or imported during your R session. Do you see an object called `sample_data`? Click on the small table to the right of `sample_data` to View our dataset. This is a quick way to browse your data to make sure everything looks like it has been imported correctly.
+Look at the "Environment" tab. Here you will see a list of all the objects you've created or imported during your R session. Do you see an object called `water_quality`? Click on the small table to the right of `water_quality` to View our dataset. This is a quick way to browse your data to make sure everything looks like it has been imported correctly.
 
 We see that our data has 9 columns (variables).
 
-Each row contains a unique Sample Id ("sample_id"), the depth of the sample ("depth", in meters), the number of microbial cells per mL ("cells_per_ml"), and environmental data like temperature ("temperature", in °C), total nitrogen ("total_nitrogen", in µg N/L), total phosphorus ("total_phosphorus", in µg P/L), dissolved organic carbon ("diss_org_carbon", in mg C/L), and Chlorophyll-a ("chlorophyll", in µg/L). 
-
-The Sample ID corresponds to the month, station, and depth of the sample (E for "epilimnion", M for "mid", and B for "bottom"). Below, you can see a map of where these stations are in Lake Ontario. Stations 62 was only sampled in September, while Station 74 was only sampled in May. 
+We have the Year, and DayofYear (from 1 to 365), as well as the Station where these samples were taken. Reference the map below to see these stations' locations. We also have temperature ("Temp", in °C), Conductivity (mS/cm), Dissolved Oxygen ("DO", in mg/L), pH, Turbidity (NTU), and chlorophyll fluorescence ("ChlFluor", in RFU). These data are a subset of the full SWMP data that's available - we're only using one sample per week from 2022-2024, while the real SWMP data extends to 2012 and has samples every fifteen minutes!
 
 <img src="{{ page.root }}/fig/r-plotting/station_map.png" width="600"/>
-
-We also found that the samples fell into three main groups based on their depth (shallow vs. deep) and the month in which they were collected (May or September). Deep samples were similar between months, so they are in the same group. These classifications are held in the "env_group" column.
 
 After we've reviewed the data, you'll want to make sure to click the tab in the upper left to return to your `plotting.R` file so we can return to our R script.
 
@@ -290,13 +279,13 @@ _[Back to top](#contents)_
 
 Let's take a closer look at the `read_csv` command we typed.
 
-Starting from the left, the first thing we see is `sample_data`. We viewed the contents of this file after it was imported so we know that `sample_data` acts as a placeholder for our data.
+Starting from the left, the first thing we see is `water_quality`. We viewed the contents of this file after it was imported so we know that `water_quality` acts as a placeholder for our data.
 
-If we highlight just `sample_data` within our code file and press <kbd>Ctrl</kbd>+<kbd>Enter</kbd> on our keyboard, what do we see?
+If we highlight just `water_quality` within our code file and press <kbd>Ctrl</kbd>+<kbd>Enter</kbd> on our keyboard, what do we see?
 
 We should see a data table outputted, similar to what we saw in the Viewer tab.
 
-In R terms, `sample_data` is a named object that references or stores something. In this case, `sample_data` stores a specific table of data.
+In R terms, `water_quality` is a named object that references or stores something. In this case, `water_quality` stores a specific table of data.
 
 When we're coding in R, we often want to assign a value, or a collection of values, to an **object**, which means we gave those values a name. To create an object in R, we'll use the `<-` symbol, which is the **assignment operator**. It assigns values generated or typed on the right to objects on the left. We can see our objects in the Environment pane. 
 
@@ -307,18 +296,18 @@ An alternative symbol that you might see used as an **assignment operator** is t
 >
 > 
 > ~~~
-> name <- "agar"
+> name <- "daphnia"
 > name
-> year <- 1881
+> year <- 1863
 > year
-> name <- "Fanny Hesse"
+> name <- "Hattie Bell"
 > name
 > ~~~
 > {: .language-r}
 > {: .source}
 >
 > > ## Solution
-> > When we assign a value to an object, the object stores that value so we can access it later. However, if we store a new value in an object we have already created (like when we stored "Fanny Hesse" in the `name` object), it replaces the old value. The `year` object does not change, because we never assign it a new value.
+> > When we assign a value to an object, the object stores that value so we can access it later. However, if we store a new value in an object we have already created (like when we stored "Hattie Bell" in the `name` object), it replaces the old value. The `year` object does not change, because we never assign it a new value.
 > {: .solution}
 {: .challenge}
 
@@ -352,7 +341,7 @@ An alternative symbol that you might see used as an **assignment operator** is t
 > {: .solution}
 {: .challenge}
 
-The next part of the command is `read_csv("sample_data.csv")`. This has a few different key parts. The first part is the `read_csv` function. You call a function in R by typing it's name followed by opening then closing parenthesis. Each function has a purpose, which is often hinted at by the name of the function. Let's try to run the function without anything inside the parenthesis.
+The next part of the command is `read_csv("water_quality.csv")`. This has a few different key parts. The first part is the `read_csv` function. You call a function in R by typing it's name followed by opening, then closing, parenthesis. Each function has a purpose, which is often hinted at by the name of the function. Let's try to run the function without anything inside the parenthesis.
 
 
 ~~~
@@ -369,9 +358,13 @@ Error in read_csv(): argument "file" is missing, with no default
 
 We get an error message. Don't panic! Error messages pop up all the time, and can be super helpful in debugging code.
 
-In this case, the message tells us "argument "file" is missing, with no default." Many functions, including `read_csv`, require additional pieces of information to do their job. We call these additional values "arguments" or "parameters." You pass **arguments** to a function by placing values in between the parenthesis. A function takes in these arguments and does a bunch of "magic" behind the scenes to output something we're interested in.
+> ## Warnings and Errors
+> It's important to differentiate between Warnings and Errors in R. A warning tells us, "you might want to know about this issue, but R still did what you asked". An error tells us, "there's something wrong with your code or your data and R didn't do what you asked". You need to fix any errors that arise. Warnings, on the other hand, are probably best to resolve or at least understand why they are coming up.
+{.callout}
 
-For example, when we loaded in our data, the command contained `"sample_data.csv"` inside the `read_csv()` function. This is the value we assigned to the file argument. But we didn't say that that was the file. How does that work?
+In this case, the message tells us "argument "file" is missing, with no default." Many functions, including `read_csv`, require additional pieces of information to do their job. We call these additional values "arguments" or "parameters." You pass **arguments** to a function by placing values in between the parenthesis. A function takes in these arguments and does some tasks behind the scenes to output something we're interested in.
+
+For example, when we loaded in our data, the command contained `"water_quality.csv"` inside the `read_csv()` function. This is the value we assigned to the file argument. But we didn't say that that was the file. How does that work?
 
 > ## Pro-tip
 >
@@ -400,7 +393,7 @@ Sys.Date()
 
 
 ~~~
-[1] "2025-02-14"
+[1] "2025-11-07"
 ~~~
 {: .output}
 
@@ -411,7 +404,7 @@ getwd()
 {: .language-r}
 
 ~~~
-"/Users/augustuspendleton/Desktop/ontario-report"
+"/Users/augustuspendleton/Desktop/nerr_data"
 ~~~
 {: .output}
 
@@ -454,41 +447,14 @@ use argument names if you want:
 
 
 ~~~
-read_csv(file = 'sample_data.csv')
+read_csv(file = 'water_quality.csv')
 ~~~
 {: .language-r}
 
 ~~~
-Rows: 71 Columns: 9
-── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-Delimiter: ","
-chr (2): sample_id, env_group
-dbl (7): depth, cells_per_ml, temperature, total_nitrogen, total_phosphorus, diss_org_carbon, chlorophyll
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+Error: 'data/water_quality.csv' does not exist in current working directory ('/Users/augustuspendleton/Desktop/Coding/Carpentries_Workshops/SLR_Summit_Workshop/_episodes_rmd').
 ~~~
-{: .output}
-
-
-
-~~~
-# A tibble: 71 × 9
-   sample_id env_group   depth cells_per_ml temperature total_nitrogen total_phosphorus diss_org_carbon chlorophyll
-   <chr>     <chr>       <dbl>        <dbl>       <dbl>          <dbl>            <dbl>           <dbl>       <dbl>
- 1 May_12_B  Deep         103.     2058864.        4.07            465             3.78            2.48        0.05
- 2 May_12_E  Shallow_May    5      4696827.        7.01            465             4.39            2.38        2.53
- 3 May_12_M  Shallow_May   15      4808339.        6.14            474             5.37            2.60        3.2 
- 4 May_17_E  Shallow_May    5      3738681.        5.99            492             4.67            2.44        0.55
- 5 May_29_B  Deep          27      2153086.        4.67            525             4.44            2.40        0.48
- 6 May_29_E  Shallow_May    5      3124920.        5.97            521             3.71            2.28        0.79
- 7 May_29_M  Shallow_May   19      2566156.        5.69            539             4.23            2.33        0.44
- 8 May_33_B  Deep         135      2293177.        3.87            505             4.18            2.34        0.22
- 9 May_33_E  Shallow_May    5      5480859.        7.93            473             6.64            2.51        3.44
-10 May_33_M  Shallow_May   20      3114433.        4.53            515             4.14            2.23        1.27
-# ℹ 61 more rows
-~~~
-{: .output}
+{: .error}
 
 > ## Position of the arguments in functions
 > Which of the following lines of code will give you an output of 3.14? For the one(s) that don't give you 3.14, what do they give you?
@@ -525,7 +491,7 @@ Sometimes it is helpful - or even necessary - to include the argument name, but 
 > 
 > 
 > ~~~
-> [1] "2025-02-14"
+> [1] "2025-11-07"
 > ~~~
 > {: .output}
 > 
@@ -539,7 +505,7 @@ Sometimes it is helpful - or even necessary - to include the argument name, but 
 > 
 > 
 > ~~~
-> [1] "/Users/augustuspendleton/Desktop/Coding/Carpentries_Workshops/Cornell_Carpentries_Curriculum/_episodes_rmd"
+> [1] "/Users/augustuspendleton/Desktop/Coding/Carpentries_Workshops/SLR_Summit_Workshop/_episodes_rmd"
 > ~~~
 > {: .output}
 > 
@@ -558,41 +524,14 @@ Sometimes it is helpful - or even necessary - to include the argument name, but 
 > {: .output}
 > 
 > ~~~
->  read_csv(file = 'sample_data.csv') # reads in csv file
+>  read_csv(file = 'water_quality.csv') # reads in csv file
 > ~~~
 > {: .language-r}
 > 
 > ~~~
-> Rows: 71 Columns: 9
-> ── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-> Delimiter: ","
-> chr (2): sample_id, env_group
-> dbl (7): depth, cells_per_ml, temperature, total_nitrogen, total_phosphorus, diss_org_carbon, chlorophyll
-> 
-> ℹ Use `spec()` to retrieve the full column specification for this data.
-> ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+> Error: 'data/water_quality.csv' does not exist in current working directory ('/Users/augustuspendleton/Desktop/Coding/Carpentries_Workshops/SLR_Summit_Workshop/_episodes_rmd').
 > ~~~
-> {: .output}
-> 
-> 
-> 
-> ~~~
-> # A tibble: 71 × 9
->    sample_id env_group   depth cells_per_ml temperature total_nitrogen total_phosphorus diss_org_carbon chlorophyll
->    <chr>     <chr>       <dbl>        <dbl>       <dbl>          <dbl>            <dbl>           <dbl>       <dbl>
->  1 May_12_B  Deep         103.     2058864.        4.07            465             3.78            2.48        0.05
->  2 May_12_E  Shallow_May    5      4696827.        7.01            465             4.39            2.38        2.53
->  3 May_12_M  Shallow_May   15      4808339.        6.14            474             5.37            2.60        3.2 
->  4 May_17_E  Shallow_May    5      3738681.        5.99            492             4.67            2.44        0.55
->  5 May_29_B  Deep          27      2153086.        4.67            525             4.44            2.40        0.48
->  6 May_29_E  Shallow_May    5      3124920.        5.97            521             3.71            2.28        0.79
->  7 May_29_M  Shallow_May   19      2566156.        5.69            539             4.23            2.33        0.44
->  8 May_33_B  Deep         135      2293177.        3.87            505             4.18            2.34        0.22
->  9 May_33_E  Shallow_May    5      5480859.        7.93            473             6.64            2.51        3.44
-> 10 May_33_M  Shallow_May   20      3114433.        4.53            515             4.14            2.23        1.27
-> # ℹ 61 more rows
-> ~~~
-> {: .output}
+> {: .error}
 {: .callout}
 
 
@@ -607,7 +546,7 @@ start by calling the `ggplot()` function. So in the tab you created for the
 
 
 ~~~
-ggplot(data=sample_data)
+ggplot(data=water_quality)
 ~~~
 {: .language-r}
 
@@ -622,8 +561,8 @@ When we run this code, the **Plots** tab will pop to the front in the lower
 right corner of the RStudio screen. Right now, we just see a big grey rectangle.
 
 What we've done is created a ggplot object and told it we will be using the data
-from the `sample_data` object that we've loaded into R. We've done this by
-calling the `ggplot()` function with `sample_data` as the `data` argument.
+from the `water_quality` object that we've loaded into R. We've done this by
+calling the `ggplot()` function with `water_quality` as the `data` argument.
 
 So we've made a plot object, now we need to start telling it what we actually
 want to draw in this plot. The elements of a plot have a bunch of properties
@@ -632,23 +571,22 @@ like an x and y position, a size, a color, etc. These properties are called
 dataset to an aesthetic in our plot. In ggplot, we can do this by creating an
 "aesthetic mapping", which we do with the `aes()` function.
 
-To create our plot, we need to map variables from our `sample_data` object to
+To create our plot, we need to map variables from our `water_quality` object to
 ggplot aesthetics using the `aes()` function. Since we have already told
-`ggplot` that we are using the data in the `sample_data` object, we can
-access the columns of `sample_data` using the object's column names.
+`ggplot` that we are using the data in the `water_quality` object, we can
+access the columns of `water_quality` using the object's column names.
 (Remember, R is case-sensitive, so we have to be careful to match the column
 names exactly!)
 
-We are interested in whether there is a relationship between temperature and microbial abundance, so let's start by telling our plot object that we want to map our
-temperature values to the x axis of our plot. We do this by adding (`+`) information to
+We are going to start by testing whether there is a relationship between temperature and dissolved oxygen, so let's start by telling our plot object that we want to map our temperature values to the x axis of our plot. We do this by adding (`+`) information to
 our plot object. Add this new line to your code and run both lines by
 highlighting them and pressing <kbd>Ctrl</kbd>+<kbd>Enter</kbd> on your
 keyboard:
 
 
 ~~~
-ggplot(data = sample_data) +
-  aes(x = temperature)
+ggplot(data = water_quality) +
+  aes(x = Temp)
 ~~~
 {: .language-r}
 
@@ -661,14 +599,14 @@ line otherwise R will assume your command ends when it starts the next row. The
 to the next line of code.
 
 Observe that our **Plot** window is no longer a grey square. We now see that
-we've mapped the `temperature` column to the x axis of our plot. Note that that
+we've mapped the `Temp` column to the x axis of our plot. Note that that
 column name isn't very pretty as an x-axis label, so let's add the `labs()`
 function to make a nicer label for the x axis
 
 
 ~~~
-ggplot(data = sample_data) +
-  aes(x = temperature) +
+ggplot(data = water_quality) +
+  aes(x = Temp) +
   labs(x = "Temperature (C)")
 ~~~
 {: .language-r}
@@ -679,7 +617,7 @@ OK. That looks better.
 
 > ## Quotes vs No Quotes
 > Notice that when we added the label value we did so by placing the values
-> inside quotes. This is because we are not using a value from inside our data
+> inside quotes. This is because we are not referencing a variable from inside our data
 > object - we are providing the name directly. When you need to include actual
 > text values in R, they will be placed inside quotes to tell them apart from
 > other object or variable names.
@@ -689,19 +627,19 @@ OK. That looks better.
 > want to specify a value that does not come from your data, then use quotes.
 {: .callout}
 
-> ## Mapping cell abundance to the y axis
-> Map our `cells_per_ml` values to the y axis and give them a nice label.
+> ## Mapping dissolved oxygen to the y axis
+> Map our `DO` values to the y axis and give them a nice label.
 > {: .source}
 >
 >
 > > ## Solution
 > > 
 > > ~~~
-> > ggplot(data = sample_data) +
-> >   aes(x = temperature) +
+> > ggplot(data = water_quality) +
+> >   aes(x = Temp) +
 > >   labs(x = "Temperature (C)") +
-> >   aes(y = cells_per_ml) +
-> >   labs(y = "Cells per mL")
+> >   aes(y = DO) +
+> >   labs(y = "Dissolved Oxygen (mg/L)")
 > > ~~~
 > > {: .language-r}
 > > 
@@ -714,18 +652,18 @@ Excellent. We've now told our plot object where the x and y values are coming
 from and what they stand for. But we haven't told our object how we want it to
 draw the data. There are many different plot types (bar charts, scatter plots,
 histograms, etc). We tell our plot object what to draw by adding a "geometry"
-("geom" for short) to our object. We will talk about many different geometries
+("geom" for short) to our object. We will talk about several different geometries
 today, but for our first plot, let's draw our data using the "points" geometry
 for each value in the data set. To do this, we add `geom_point()` to our plot
 object:
 
 
 ~~~
-ggplot(data = sample_data) +
-  aes(x = temperature) +
+ggplot(data = water_quality) +
+  aes(x = Temp) +
   labs(x = "Temperature (C)") +
-  aes(y = cells_per_ml) +
-  labs(y = "Cells per mL") +
+  aes(y = DO) +
+  labs(y = "Dissolved Oxygen (mg/L)") +
   geom_point()
 ~~~
 {: .language-r}
@@ -734,105 +672,104 @@ ggplot(data = sample_data) +
 
 Now we're really getting somewhere. It finally looks like a proper plot!  We can
 now see a trend in the data. It looks like samples with a higher temperature tend to
-have a higher cell abundance. Let's add a title to our plot to make that
+have higher dissolved oxygen. Let's add a title to our plot to make that
 clearer. Again, we will use the `labs()` function, but this time we will use the
 `title =` argument.
 
 
 ~~~
-ggplot(data = sample_data) +
-  aes(x = temperature) +
+ggplot(data = water_quality) +
+  aes(x = Temp) +
   labs(x = "Temperature (C)") +
-  aes(y = cells_per_ml) +
-  labs(y = "Cells per mL") +
+  aes(y = DO) +
+  labs(y = "Dissolved Oxygen (mg/L)") +
   geom_point() +
-  labs(title = "Does temperature affect microbial abundance?")
+  labs(title = "As temperature rises, oxygen decreases")
 ~~~
 {: .language-r}
 
 <img src="../fig/rmd-01-FirstPlotAddTitle-1.png" width="540" style="display: block; margin: auto;" />
 
 No one can deny we've made a very handsome plot! But now looking at the data, we
-might be curious about learning more - for example, it seems like the data separates into at least two distinct groups. We know that there are pieces of data in the `sample_data`
-object that we haven't used yet. Maybe we are curious if the trend between temperature and cell abundance is consistent between our three environmental groups. One thing we
+might be curious about learning more - for example, we know these data were taken at four different stations. Maybe we are curious if the trend between temperature and oxygen is consistent between our three environmental groups. One thing we
 could do is use a different color for each of these groups. To map the
-`env_group` of each point to a color, we will again use the `aes()` function:
+`Station` of each point to a color, we will again use the `aes()` function:
 
 
 ~~~
-ggplot(data = sample_data) +
-  aes(x = temperature) +
+ggplot(data = water_quality) +
+  aes(x = Temp) +
   labs(x = "Temperature (C)") +
-  aes(y = cells_per_ml) +
-  labs(y = "Cells per mL") +
+  aes(y = DO) +
+  labs(y = "Dissolved Oxygen (mg/L)") +
   geom_point() +
-  labs(title = "Does temperature affect microbial abundance?") +
-  aes(color = env_group)
+  labs(title = "As temperature rises, oxygen decreases") +
+  aes(color = Station)
 ~~~
 {: .language-r}
 
 <img src="../fig/rmd-01-FirstPlotAddColor-1.png" width="540" style="display: block; margin: auto;" />
 
-Here we can see that Deep samples have fewer cells than Shallow samples. Notice that when we add a mapping for
+Here we can see that Pokegama samples consistently have lower oxygen than the other stations. Notice that when we add a mapping for
 color, ggplot automatically provided a legend for us. It took care of assigning
-different colors to each of our unique values of the `env_group` variable. (Note
+different colors to each of our unique values of the `Station` variable. (Note
 that when we mapped the x and y values, those drew the actual axis labels, so in
 a way the axes are like the legends for the x and y values). 
 
-What other variables might we expect to affect cell abundance? Perhaps microbial cell abundance is correlated to other measures of productivity, like the abundance of phytoplankton. Let's find out by mapping the chlorophyll levels of each sample to the size of our points.
+What other variables might help explain Pokegama's unique decrease in oxygen? Let's find out by mapping the turbidity (or "cloudiness") of each sample to the size of our points.
 
 
 ~~~
-ggplot(data = sample_data) +
-  aes(x = temperature) +
+ggplot(data = water_quality) +
+  aes(x = Temp) +
   labs(x = "Temperature (C)") +
-  aes(y = cells_per_ml) +
-  labs(y = "Cells per mL") +
+  aes(y = DO) +
+  labs(y = "Dissolved Oxygen (mg/L)") +
   geom_point() +
-  labs(title = "Does temperature affect microbial abundance?") +
-  aes(color = env_group) +
-  aes(size = chlorophyll)
+  labs(title = "As temperature rises, oxygen decreases") +
+  aes(color = Station) +
+  aes(size = Turbidity)
 ~~~
 {: .language-r}
 
 <img src="../fig/rmd-01-FirstPlotAddSize-1.png" width="540" style="display: block; margin: auto;" />
 
-There doesn't seem to be a very strong association with chlorophyll, besides low chlorophyll in deep samples. We got another legend here for size
+Interesting - Pokegama also has relatively high turbidity compared to the other stations. We got another legend here for size
 which is nice, but the titles aren't very informative. Let's change those, using another calls to `labs()`
 
 
 ~~~
-ggplot(data = sample_data) +
-  aes(x = temperature) +
+ggplot(data = water_quality) +
+  aes(x = Temp) +
   labs(x = "Temperature (C)") +
-  aes(y = cells_per_ml) +
-  labs(y = "Cells per mL") +
+  aes(y = DO) +
+  labs(y = "Dissolved Oxygen (mg/L)") +
   geom_point() +
-  labs(title = "Does temperature affect microbial abundance?") +
-  aes(color = env_group) +
-  aes(size = chlorophyll) +
-  labs(size = "Chlorophyll (ug/L)",
-       color = "Environmental Group")
+  labs(title = "As temperature rises, oxygen decreases") +
+  aes(color = Station) +
+  aes(size = Turbidity) +
+  labs(size = "Turbidity (NTU)",
+       color = "SWMP Station")
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-FirstPlotAddchlorophyll-1.png" width="540" style="display: block; margin: auto;" />
+<img src="../fig/rmd-01-FirstPlotAddTurbidity-1.png" width="540" style="display: block; margin: auto;" />
 
-While we're at it, I don't love the scientific notation along the y-axis. Let's change it by dividing our `cells_per_ml` by 1,000,000 and updating our axis title to match.
+While we're at it, maybe I want our DO units to be in g/L, rather than mg. Let's change it by dividing our `DO` by 1,000 and updating our axis title to match.
 
 
 ~~~
-ggplot(data = sample_data) +
-  aes(x = temperature) +
+ggplot(data = water_quality) +
+  aes(x = Temp) +
   labs(x = "Temperature (C)") +
-  aes(y = cells_per_ml/1000000) +
-  labs(y = "Cells (millions/mL)") +
+  aes(y = DO/1000) +
+  labs(y = "Dissolved Oxygen (g/L)") +
   geom_point() +
-  labs(title = "Does temperature affect microbial abundance?") +
-  aes(color = env_group) +
-  aes(size = chlorophyll) +
-  labs(size = "Chlorophyll (ug/L)",
-       color = "Environmental Group")
+  labs(title = "As temperature rises, oxygen decreases") +
+  aes(color = Station) +
+  aes(size = Turbidity) +
+  labs(size = "Turbidity (NTU)",
+       color = "SWMP Station")
 ~~~
 {: .language-r}
 
@@ -848,26 +785,26 @@ in the **Plots** tab - it will break free from the lower right corner and open
 the plot in its own window.
 
 > ## Changing shapes
-> Instead of (or in addition to) color, change the shape of the points so each env_group has a different shape. (I'm not saying this is a great thing to do - it's just for practice!) HINT: Is size an aesthetic or a geometry? If you're stuck, feel free to Google it, or look at the help menu.
+> Instead of (or in addition to) color, change the shape of the points so each Station has a different shape. (I'm not saying this is a great thing to do - it's just for practice!) HINT: Is size an aesthetic or a geometry? If you're stuck, feel free to Google it, or look at the help menu.
 > {: .source}
 >
 > > ## Solution
 > > You'll want to use the `aes` aesthetic function to change the shape:
 > > 
 > > ~~~
-> > ggplot(data = sample_data) +
-> >   aes(x = temperature) +
+> > ggplot(data = water_quality) +
+> >   aes(x = Temp) +
 > >   labs(x = "Temperature (C)") +
-> >   aes(y = cells_per_ml/1000000) +
-> >   labs(y = "Cells (millions/mL)") +
+> >   aes(y = DO/1000) +
+> >   labs(y = "Dissolved Oxygen (g/L)") +
 > >   geom_point() +
-> >   labs(title = "Does temperature affect microbial abundance?") +
-> >   aes(color = env_group) +
-> >   aes(size = chlorophyll) +
-> >   aes(shape = env_group) +
-> >   labs(size = "Chlorophyll (ug/L)",
-> >        color = "Environmental Group",
-> >        shape = "Environmental Group")
+> >   labs(title = "As temperature rises, oxygen decreases") +
+> >   aes(color = Station) +
+> >   aes(size = Turbidity) +
+> >   aes(shape = Station) +
+> >   labs(size = "Turbidity (NTU)",
+> >        color = "SWMP Station",
+> >        shape = "SWMP Station")
 > > ~~~
 > > {: .language-r}
 > > 
@@ -884,35 +821,28 @@ together. A more condensed version of the exact same plot would look like this:
 
 
 ~~~
-ggplot(data = sample_data) +
-  aes(x = temperature, 
-      y = cells_per_ml/1000000, 
-      color = env_group, 
-      size = chlorophyll) +
+ggplot(data = water_quality) +
+  aes(x = Temp, 
+      y = DO/1000, 
+      color = Station, 
+      size = Turbidity) +
   geom_point() +
   labs(x = "Temperature (C)", 
-       y = "Cells (millions/mL)",
-       title = "Does temperature affect microbial abundance?",
-       size = "Chlorophyll (ug/L)",
-       color = "Environmental Group")
+       y = "Dissolved Oxygen (g/L)",
+       title = "As temperature rises, oxygen decreases",
+       size = "Turbidity (NTU)",
+       color = "SWMP Station")
 ~~~
 {: .language-r}
 
 <img src="../fig/rmd-01-FirstPlotCondensed-1.png" width="540" style="display: block; margin: auto;" />
 
-# Plotting for data exploration
+## Importing additional datasets
 _[Back to top](#contents)_
 
-Within a project, we often have to work with many different data types, which require different methods of analysis and visualization. One of the most enjoyable parts of data analysis is trying out different plotting techniques to find patterns in your data.
+In the first plot, we found that temperature had a major influence on dissolved oxygen, and Pokegama had consistently lower oxygen, perhaps partially due to its higher turbidity. In these analyses, we studied a trend between two variables, using samples from many different timepoints. What if we want to track the change of a variable over time?
 
-## Importing datasets
-_[Back to top](#contents)_
-
-In the first plot, we found that temperature had a major influence on microbial abundance in Lake Ontario. We also learned, using color, that deep samples have cool temperatures, and water temperatures were colder in May compared to September. However, our `sample_data` object only contained data from two sampling time points. It would be useful for us to understand how temperatures vary in Lake Ontario over a fuller time series.
-
-To do so, we will read in a new dataset, called `buoy_data.csv`. This file contains daily temperature measurements from buoys across Lake Ontario in 2023, collected and provided by the Ontario Ministry of Natural Resources, Fisheries and Oceans Canada, the U.S. Fish and Wildlife Service, U.S. Geological Survey, and Queen’s University. Raw data are publicly available through the [GLOS Seagull platform](https://seagull.glos.org/data-console/groups/379), though today we'll be working with a cleaned and simplified version of the dataset. Below, I show a map of the buoys whose data we'll analyze. 
-
-<img src="{{ page.root }}/fig/r-plotting/buoy_map.png" width="600"/>
+To do so, we will read in a new dataset, called `water_quality_oliver.csv`, which is a subset of our water quality data that just includes samples from Oliver Bridge, but the variables are the same.
 
 To start, we will read in the data using `read_csv`.
 
@@ -924,7 +854,7 @@ To start, we will read in the data using `read_csv`.
 >
 > 
 > ~~~
-> buoy_data <- read_csv()
+> water_quality_oliver <- read_csv()
 > ~~~
 > {: .language-r}
 >
@@ -932,7 +862,7 @@ To start, we will read in the data using `read_csv`.
 > >
 > > 
 > > ~~~
-> > buoy_data <- read_csv("buoy_data.csv")
+> > water_quality_oliver <- read_csv("water_quality_oliver.csv")
 > > ~~~
 > > {: .language-r}
 > {: .solution}
@@ -942,49 +872,47 @@ Let's take a look at the full dataset. We could use `View()`, the way we did for
 
 
 ~~~
-dim(buoy_data)
+dim(water_quality_oliver)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-[1] 2945    6
+[1] 84  8
 ~~~
 {: .output}
 
 
 
 ~~~
-head(buoy_data)
+head(water_quality_oliver)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-# A tibble: 6 × 6
-  sensor         buoy    depth  day_of_year month   temperature
-  <chr>          <chr>   <chr>        <dbl> <chr>         <dbl>
-1 Niagara_Bottom Niagara Bottom           1 January        3.81
-2 Niagara_Bottom Niagara Bottom           2 January        3.80
-3 Niagara_Bottom Niagara Bottom           3 January        3.76
-4 Niagara_Bottom Niagara Bottom           4 January        3.56
-5 Niagara_Bottom Niagara Bottom           5 January        3.18
-6 Niagara_Bottom Niagara Bottom           6 January        3.19
+# A tibble: 6 × 8
+   Year DayofYear Station  Temp Conductivity    DO    pH Turbidity
+  <dbl>     <dbl> <chr>   <dbl>        <dbl> <dbl> <dbl>     <dbl>
+1  2022       121 Oliver    4.7         0.11  12.9   7.6        22
+2  2022       128 Oliver   10.9         0.11  11     7.5        11
+3  2022       135 Oliver   14.3         0.09  10.5   7.5        43
+4  2022       142 Oliver   12.6         0.1   11     7.5        13
+5  2022       149 Oliver   13.8         0.12  10     7.5         8
+6  2022       156 Oliver   16.8         0.12   9.5   7.5        11
 ~~~
 {: .output}
-
-This dataset has six variables. We have four buoy locations ("Niagara", "Toronto","South Shore", and "Point Petre"), and temperature sensors at two depths: the surface and the bottom for each location. `sensor` is a combination of these values, to create a unique idea for each temperature sensor. We also have `day_of_year`, where 1 corresponds to January 1st and 365 corresponds to 365. We also have the `month` that sample was collected. Finally, we have `temperature`, in degrees Celsius.
 
 > ## Predicting `ggplot` outputs
-> Now that we have the full dataset read into our R session, let's plot the data placing `day_of_year` variable on the x axis and temperature on the y axis. We've provided the code below. Notice that we've collapsed the plotting function options and left off some of the labels so there's not as much code to work with.
+> Now that we have the dataset read into our R session, let's plot the data placing `DayofYear` variable on the x axis and Conductivity on the y axis. We've provided the code below. Notice that we've collapsed the plotting function options and left off some of the labels so there's not as much code to work with.
 > Before running the code, read through it and see if you can predict what the plot output will look like. Then run the code and check to see if you were right!
 >
 > 
 > ~~~
->  ggplot(data = buoy_data) +
->  aes(x=day_of_year, y=temperature, color=depth) +
+>  ggplot(data = water_quality_oliver) +
+>  aes(x=DayofYear, y=Conductivity) +
 >  geom_point()
 > ~~~
 > {: .language-r}
@@ -995,116 +923,143 @@ This dataset has six variables. We have four buoy locations ("Niagara", "Toronto
 
 Hmm, the plot we created in the last exercise is a good start but it's hard to tell which points should be connected in this time series. What's going on? Since the dataset is more complex, the plotting options we used for the smaller dataset aren't as useful for interpreting these data. Luckily, we can add additional attributes to our plots that will make patterns more apparent. For example, we can generate a different type of plot -- perhaps a line plot -- and assign attributes for columns where we might expect to see patterns.
 
-Let's review the columns and the types of data stored in our dataset to decide how we should group things together. To get an overview of our data object, we can look at the structure of `buoy_data` using the `str()` function.
+Let's review the columns and the types of data stored in our dataset to decide how we should group things together. To get an overview of our data object, we can look at the structure of `water_quality_oliver` using the `head()` function.
 
 ~~~
-str(buoy_data)
+head(water_quality_oliver)
 ~~~
 {: .language-r}
 
 > ## Pro-tip
 >
-> The tidyverse also comes with a function for quickly seeing the structure of your `data.frame` called `glimpse()`. Try it and compare to the output from `str()`!
+> The tidyverse also comes with a function for quickly seeing the structure of your `data.frame` called `glimpse()`. Try it and compare to the output from `head()`!
 >
 {: .testimonial}
 
 (You can also review the structure of your data in the **Environment** tab by clicking on the blue circle with the arrow in it next to your data object name.)
 
-So, what do we see? The column names are listed after a `$` symbol, and then we have a `:` followed by a text label. These labels correspond to the type of data stored in each column.
+So, what do we see? The column types are listed beneath the column names. These labels correspond to the type of data stored in each column.
 
 What kind of data do we see?
-* "num" = Numeric (or non-whole number)
+* "dbl" = "Double" or "Numeric" (a non-whole number)
 * "chr" = Character (categorical data)
 
-Depending on the function and your R version, you may also see "int" or "dbl", which corresponds to "integer" (whole numbers) and "double" (numbers with decimals). 
+Depending on the function and your R version, you may also see "int" or "lgl", which corresponds to "integer" (whole numbers) and "logical" (TRUE/FALSE values). 
 
 **Note** In anything before R 4.0, categorical variables used to be read in as factors, which are a [special data object](https://www.tutorialspoint.com/r/r_factors.htm) that are used to store categorical data and have limited numbers of unique values. The unique values of a factor are tracked via the "levels" of a factor. A factor will always remember all of its levels even if the values don't actually appear in your data. The factor will also remember the order of the levels and will always print values out in the same order (by default this order is alphabetical).
 
-If your columns are stored as character values but you need factors for plotting, ggplot will convert them to factors for you as needed.
-
-Our plot has a lot of points in columns which makes it hard to see trends over time. A better way to view the data showing changes over time is to use a [line plot](http://www.sthda.com/english/wiki/ggplot2-line-plot-quick-start-guide-r-software-and-data-visualization). Let's try changing the geom to a line and see what happens.
+Our plot has a lot of points from multiple years which makes it hard to see trends over time. A better way to view the data showing changes over time is to use a [line plot](http://www.sthda.com/english/wiki/ggplot2-line-plot-quick-start-guide-r-software-and-data-visualization). Let's try changing the geom to a line and see what happens.
 
 
 ~~~
-  ggplot(data = buoy_data) +
-  aes(x = day_of_year, y = temperature, color = depth) +
+ggplot(data = water_quality_oliver) +
+    aes(x = DayofYear, y = Conductivity) +
     geom_line()
 ~~~
 {: .language-r}
 
 <img src="../fig/rmd-01-GapMinderLinePlotBad-1.png" width="540" style="display: block; margin: auto;" />
 
-Hmm. This doesn't look right. By setting the color value, we got a line for each depth, but the line covers all four buoy locations as well. What we really want is a line for each temperature sensor. We need to tell ggplot that we want to connect the values for each `sensor` value instead. To do this, we need to use the `group=` aesthetic.
+Hmm. This doesn't look right. We have data from 2022, 2023, and 2024, so ideally we should see a line from each. We need to tell ggplot this, specificallly - otherwise it is just connecting each dot by its order on the x-axis. We'll do this use the "group" argument.
 
 
 ~~~
-  ggplot(data = buoy_data) +
-  aes(x = day_of_year, y = temperature, group = sensor, color = depth) +
+ggplot(data = water_quality_oliver) +
+    aes(x = DayofYear, y = Conductivity, group = Year) +
     geom_line()
 ~~~
 {: .language-r}
 
 <img src="../fig/rmd-01-GapMinderLinePlot-1.png" width="540" style="display: block; margin: auto;" />
 
-That's looking much better! 
+That's looking much better! Realistically, we probably want to see which year each line corresponds to. Let's add the `color` aesthetic to tell ggplot to change the line color. 
 
-> ## Bonus Exercise: More line plots
-> Great job making your first line plot! Hmmm -- one of the surface sensors warms up much slower compared to the others. What `aes` argument can you change to figure out which buoy this comes from?
+
+~~~
+ggplot(data = water_quality_oliver) +
+    aes(x = DayofYear, y = Conductivity, group = Year, color = Year) +
+    geom_line()
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-01-GapMinderLinePlotcolors-1.png" width="540" style="display: block; margin: auto;" />
+
+That's looking good! Real quick, though, something looks a little funky. Ggplot seems to be treating out the `Year` variable as a continuous variable (notice the gradient color scale), rather than as three discrete groups. Just as we modified our DO argument above, we can convert Year to a factor "on the fly" to tell R this is a categorical variable. 
+
+
+~~~
+ggplot(data = water_quality_oliver) +
+    aes(x = DayofYear, y = Conductivity, group = Year, color = as.factor(Year)) +
+    geom_line()
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-01-GapMinderLinePlotfactors-1.png" width="540" style="display: block; margin: auto;" />
+
+Excellent :) 
+
+> ## Bonus Exercise: Fix the labels
+> Great job making your first line plot! Though I don't like the "as.factor(Year)" in the legend. How can you update the color label?
 >
 > > ## Solution
 > > 
 > > ~~~
-> > ggplot(data = buoy_data) +
-> >  aes(x = day_of_year, y = temperature, group = sensor, color = buoy) +
-> >  geom_line()
+> > ggplot(data = water_quality_oliver) +
+> >  aes(x = DayofYear, y = Conductivity, group = Year, color = as.factor(Year)) +
+> >  geom_line() + 
+> >  labs(color = "Year")
 > > ~~~
 > > {: .language-r}
 > > 
 > > <img src="../fig/rmd-01-gapminderMoreLines-1.png" width="540" style="display: block; margin: auto;" />
-> > The Toronto buoy warms up much slower compared to the other three buoys.
+> >
 > {: .solution}
 {: .challenge}
+
+What can we conclude about conductivity each year? Discuss with your partner what trends you see.
 
 ## Facets
 _[Back to top](#contents)_
 
-The plot we made above does a good job of demonstrating the overall differences between surface and bottom sensors. However, it in some sections it's difficult to see trends for each buoy because the lines vary so much on top of each other. If you have a lot of different columns to try to plot or have distinguishable subgroups in your data, a powerful plotting technique called faceting might come in handy. When you facet your plot, you basically make a bunch of smaller plots and combine them together into a single image. Luckily, `ggplot` makes this very easy. Let's start with our plot from above.
+To create the plot above, we worked with a subset of the data, just from Oliver Bridge. But what if we want to look at this trend across all four stations? We'd have twelve lines, all on top of each other - this could be confusing! If you have a lot of different columns to try to plot or have distinguishable subgroups in your data, a powerful plotting technique called faceting might come in handy. When you facet your plot, you basically make a bunch of smaller plots and combine them together into a single image. Luckily, `ggplot` makes this very easy. Let's go back to our original water quality dataset, and try to make the same plot as above.
 
 
 ~~~
-ggplot(data = buoy_data) +
-  aes(x = day_of_year, y = temperature, group = sensor, color = depth) +
+ggplot(data = water_quality) +
+    aes(x = DayofYear, y = Conductivity, group = Year, color = as.factor(Year)) +
     geom_line()
 ~~~
 {: .language-r}
 
 <img src="../fig/rmd-01-GapNoFacet-1.png" width="540" style="display: block; margin: auto;" />
 
-Now, let's make four separate plots, which correspond to each buoy. We can do this with `facet_wrap()`
+Hmmm - this is a mess. That's because each year's line is bouncing around between points from all four stations.
+
+Now, let's make four separate plots, which correspond to each station. We can do this with `facet_wrap()`
 
 
 ~~~
-ggplot(data = buoy_data) +
-  aes(x = day_of_year, y = temperature, group = sensor, color = depth) +
-  geom_line() + 
-  facet_wrap(~buoy)
+ggplot(data = water_quality) +
+    aes(x = DayofYear, y = Conductivity, group = Year, color = as.factor(Year)) +
+    geom_line() + 
+    facet_wrap(~Station)
 ~~~
 {: .language-r}
 
 <img src="../fig/rmd-01-GapFacetWrap-1.png" width="540" style="display: block; margin: auto;" />
 
-Note that `facet_wrap` requires this `~` in order to pass in the column names. You can interpret the `~` as "facet **by** this. We can see in this output that we get a separate box with a label for each buoy so that only the lines for the buoy are in that box. Now it is much easier to see trends in our data! We see that while surface waters are often much warmer than bottom waters, there can be sudden drops in temperature. As limnologists (people who study lakes), we call these "upwellings". Through our analyses, we can see these upwellings are more common near Toronto than near Niagara!
+Note that `facet_wrap` requires this `~` in order to pass in the column names. You can interpret the `~` as "facet **by** this. We can see in this output that we get a separate box with a label for each station so that only the lines for the station are in that box. Now it is much easier to see trends in our data! We see that the increase in conductivity, caused by moderate drought in 2023, is especially clear at Oliver Bridge and Pokegama.
 
 > ## Bonus Exercise: Free axes on faceted plots
-> Often, the range of values between facets is very different; for example, Toronto's max temperature is five degrees less than the South Shore station. Perhaps we want to emphasise the trends within each group, with less concern about comparing values between facets. We can modify the range of facet axes by adding the argument `scales = ` inside our `facet_wrap` command.
+> Sometimes, the range of values between facets is very different. Perhaps we want to emphasise the trends within each group, with less concern about comparing values between facets. We can modify the range of facet axes by adding the argument `scales = ` inside our `facet_wrap` command.
 >
 > > ## Example solution
 > > 
 > > ~~~
-> > ggplot(data = buoy_data) +
-> >   aes(x = day_of_year, y = temperature, group = sensor, color = depth) +
+> > ggplot(data = water_quality) +
+> >   aes(x = DayofYear, y = Conductivity, group = Year, color = as.factor(Year)) +
 > >   geom_line() +
-> >   facet_wrap(~buoy, scales = "free_y")
+> >   facet_wrap(~Station, scales = "free_y")
 > > ~~~
 > > {: .language-r}
 > > 
@@ -1116,37 +1071,81 @@ The other faceting function ggplot provides is `facet_grid()`. The main differen
 
 
 ~~~
-ggplot(data = buoy_data) +
-  aes(x = day_of_year, y = temperature, group = sensor, color = depth) +
+ggplot(data = water_quality) +
+  aes(x = DayofYear, y = Conductivity, group = Year, color = as.factor(Year)) +
   geom_line() + 
-  facet_grid(rows = vars(buoy))
+  facet_grid(rows = vars(Station))
 ~~~
 {: .language-r}
 
 <img src="../fig/rmd-01-GapFacetGrid-1.png" width="540" style="display: block; margin: auto;" />
 
-Unlike the `facet_wrap` output where each box got its own x and y axis, with `facet_grid()`, there is only one x axis along the bottom. We also used the function `vars()` to make it clear we're referencing the column `buoy`.
+Unlike the `facet_wrap` output where each box got its own x and y axis, with `facet_grid()`, there is only one x axis along the bottom. We also used the function `vars()` to make it clear we're referencing the column `Station`.
 
 ## Discrete Plots
 _[Back to top](#contents)_
 
 So far we've looked at two plot types (`geom_point` and `geom_line`) which work when both the x and y values are numeric. But sometimes you may have one of your values be discrete (a factor or character).
 
-We are going to return to our `sample_data` dataframe to practice some new plot types. We've previously used the discrete values of the `env_group` column to color in our points. But now let's try moving that variable to the `x` axis. Let's say we are curious about comparing the distribution of the cell abundance values for each of the different `env_groups`. We can do so using a box plot. Try this out yourself in the exercise below!
+We are going to read in one more dataset to practice some new plot types. This time, we'll work with **nutrient** data from the reserve, which requires monthly sampling and laboratory analysis. 
+
+> ## Read in more data
+>
+> What argument should be provided in the below code to read in the full dataset?
+>
+> 
+> ~~~
+> september_nutrients <- read_csv()
+> ~~~
+> {: .language-r}
+>
+> > ## Solution
+> >
+> > 
+> > ~~~
+> > september_nutrients <- read_csv("september_nutrients.csv")
+> > ~~~
+> > {: .language-r}
+> {: .solution}
+{: .challenge}
+
+Let's look at our new dataset. 
+
+
+~~~
+head(september_nutrients)
+~~~
+{: .language-r}
+
+
+
+~~~
+Error: object 'september_nutrients' not found
+~~~
+{: .error}
+
+This dataset contains nutrient values from 2021-2023 taken in September at each station. We have orthophosphate (`PO4`, in mg/L as P), ammonium (`NH4`, in mg/L as N), nitrite/nitrate (`NOx`, in mg/L as N), and Chlorophyll-a (`Chl_a`, in ug/L). 
+
+We've previously used the discrete values of the `Station` column to color our points. But now let's try moving that variable to the `x` axis. Let's say we are curious about comparing the distribution of different nutrients for each of the different `Stations`. We can do so using a box plot. Try this out yourself in the exercise below!
 
 > ## Box plots
-> Using the `sample_data` data, use ggplot to create a box plot with env_group on the x axis and cells_per_ml on the y axis. You can use the examples from earlier in the lesson as a template to remember how to pass ggplot data and map aesthetics and geometries onto the plot. If you're really stuck, feel free to use the internet as well!
+> Using the `september_nutrients` data, use ggplot to create a box plot with Station on the x axis and chlorophyll-a on the y axis. You can use the examples from earlier in the lesson as a template to remember how to pass ggplot data and map aesthetics and geometries onto the plot. If you're really stuck, feel free to use the internet as well!
 >
 > > ## Solution
 > > 
 > > ~~~
-> > ggplot(data = sample_data) +
-> >  aes(x = env_group, y = cells_per_ml) +
+> > ggplot(data = september_nutrients) +
+> >  aes(x = Station, y = Chl_a) +
 > >  geom_boxplot()
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-01-GapBox-1.png" width="540" style="display: block; margin: auto;" />
+> > 
+> > 
+> > ~~~
+> > Error: object 'september_nutrients' not found
+> > ~~~
+> > {: .error}
 > {: .solution}
 {: .challenge}
 
@@ -1158,13 +1157,18 @@ This type of visualization makes it easy to compare the range and spread of valu
 > > ## Example solution
 > > 
 > > ~~~
-> > ggplot(data = sample_data) +
-> >   aes(x = env_group, y = cells_per_ml) +
+> > ggplot(data = september_nutrients) +
+> >   aes(x = Station, y = Chl_a) +
 > >   geom_violin()
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-01-GapViol-1.png" width="540" style="display: block; margin: auto;" />
+> > 
+> > 
+> > ~~~
+> > Error: object 'september_nutrients' not found
+> > ~~~
+> > {: .error}
 > {: .solution}
 {: .challenge}
 
@@ -1175,39 +1179,54 @@ So far we've only been adding one geom to each plot, but each plot object can ac
 
 
 ~~~
-ggplot(data = sample_data) +
-  aes(x = env_group, y = cells_per_ml) +
+ggplot(data = september_nutrients) +
+  aes(x = Station, y = Chl_a) +
   geom_boxplot()
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-GapViolin-1.png" width="540" style="display: block; margin: auto;" />
+
+
+~~~
+Error: object 'september_nutrients' not found
+~~~
+{: .error}
 
 Box plots are a great way to see the overall spread of your data. However, it is good practice to also give your reader as sense of how many observations have gone into your boxplots. To do so, we can plot each observation as an individual point, on top of the boxplot.
 
 
 ~~~
-ggplot(data = sample_data) +
-  aes(x = env_group, y = cells_per_ml) +
+ggplot(data = september_nutrients) +
+  aes(x = Station, y = Chl_a) +
   geom_boxplot() +
   geom_point()
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-GapViolinPoints-1.png" width="540" style="display: block; margin: auto;" />
-
-OK, we've drawn the points but most of them stack up on top of each other. One way to make it easier to see all the data is to "jitter" the points, or move them around randomly so they don't stack up on top of each other. To do this, we use `geom_jitter` rather than `geom_point`
 
 
 ~~~
-ggplot(data = sample_data) +
-  aes(x = env_group, y = cells_per_ml) +
+Error: object 'september_nutrients' not found
+~~~
+{: .error}
+
+Ok, we've drawn the points but most of them stack up on top of each other. One way to make it easier to see all the data is to "jitter" the points, or move them around randomly so they don't stack up on top of each other. To do this, we use `geom_jitter` rather than `geom_point`
+
+
+~~~
+ggplot(data = september_nutrients) +
+  aes(x = Station, y = Chl_a) +
   geom_boxplot() +
   geom_jitter()
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-GapViolinJitter-1.png" width="540" style="display: block; margin: auto;" />
+
+
+~~~
+Error: object 'september_nutrients' not found
+~~~
+{: .error}
 
 Be aware that these movements are random so your plot will look a bit different each time you run it!
 
@@ -1215,14 +1234,19 @@ Now let's try switching the order of `geom_boxplot` and `geom_jitter`. What happ
 
 
 ~~~
-ggplot(data = sample_data) +
-  aes(x = env_group, y = cells_per_ml) +
+ggplot(data = september_nutrients) +
+  aes(x = Station, y = Chl_a) +
   geom_jitter() +
   geom_boxplot()
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-GapViolinJitterLayers-1.png" width="540" style="display: block; margin: auto;" />
+
+
+~~~
+Error: object 'september_nutrients' not found
+~~~
+{: .error}
 
 Since we plot the `geom_jitter` layer first, the  boxplot layer is placed on top of the `geom_jitter` layer, so we cannot see most of the points.
 
@@ -1230,32 +1254,42 @@ Note that each layer can have it's own set of aesthetic mappings. So far we've b
 
 
 ~~~
-ggplot(data = sample_data, mapping = aes(x = env_group, y = cells_per_ml)) +
+ggplot(data = september_nutrients, mapping = aes(x = Station, y = Chl_a)) +
   geom_boxplot() +
   geom_jitter()
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-GapViolinJitter2-1.png" width="540" style="display: block; margin: auto;" />
-
-However, we can also use aesthetic values for only one layer of our plot. To do that, you an place an additional `aes()` inside of that layer. For example, what if we want to change the size for the points so they are scaled by chlorophyll, but we don't want to change the box plot? We can do:
 
 
 ~~~
-ggplot(data = sample_data) +
-  aes(x = env_group, y = cells_per_ml) +
+Error: object 'september_nutrients' not found
+~~~
+{: .error}
+
+However, we can also use aesthetic values for only one layer of our plot. To do that, you an place an additional `aes()` inside of that layer. For example, what if we want to change the size for the points so they are scaled by phosphate, but we don't want to change the box plot? We can do:
+
+
+~~~
+ggplot(data = september_nutrients) +
+  aes(x = Station, y = Chl_a) +
   geom_boxplot() +
-  geom_jitter(aes(size = chlorophyll))
+  geom_jitter(aes(size = PO4))
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-GapViolinJitterAes-1.png" width="540" style="display: block; margin: auto;" />
 
-Both `geom_boxplot` and `geom_jitter` will inherit the default values of `aes(env_group, cells_per_ml)` but only `geom_jitter` will also use `aes(size = chlorophyll)`.
+
+~~~
+Error: object 'september_nutrients' not found
+~~~
+{: .error}
+
+Both `geom_boxplot` and `geom_jitter` will inherit the default values of `aes(Station, Chl_a)` but only `geom_jitter` will also use `aes(size = PO4)`.
 
 > ## Functions within functions
 >
-> In the two examples above, we placed the `aes()` function inside another function -- see how in the line of code `geom_jitter(aes(size = chlorophyll))`, `aes()` is nested **inside** `geom_jitter()`? When this happens, R evaluates the inner function first, then passes the output of that function as an argument to the outer function.
+> In the two examples above, we placed the `aes()` function inside another function -- see how in the line of code `geom_jitter(aes(size = PO4))`, `aes()` is nested **inside** `geom_jitter()`? When this happens, R evaluates the inner function first, then passes the output of that function as an argument to the outer function. We also did this earlier, when we converted Year to a factor inside the ggplot call.
 >
 > Take a look at this simpler example. Suppose we have:
 >
@@ -1288,25 +1322,35 @@ Let's say we want to spice up our plot a bit by adding some color. Maybe we want
 
 
 ~~~
-ggplot(data = sample_data) +
-  aes(x = env_group, y = cells_per_ml) +
+ggplot(data = september_nutrients) +
+  aes(x = Station, y = Chl_a) +
   geom_boxplot(color="pink")
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-GapViolinColor-1.png" width="540" style="display: block; margin: auto;" />
+
+
+~~~
+Error: object 'september_nutrients' not found
+~~~
+{: .error}
 
 Well, that didn't get all that colorful. That's because objects like these boxplots have two different parts that have a color: the shape outline, and the inner part of the shape. For geoms that have an inner part, you change the fill color with `fill=` rather than `color=`, so let's try that instead
 
 
 ~~~
-ggplot(data = sample_data) +
-  aes(x = env_group, y = cells_per_ml) +
+ggplot(data = september_nutrients) +
+  aes(x = Station, y = Chl_a) +
   geom_boxplot(fill="pink")
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-GapViolinFill-1.png" width="540" style="display: block; margin: auto;" />
+
+
+~~~
+Error: object 'september_nutrients' not found
+~~~
+{: .error}
 
 That's some plot now isn't it! So "pink" maybe wasn't the prettiest color. R knows lots of color names. You can see the full list if you run `colors()` in the console. Since there are so many, you can randomly choose 10 if you run `sample(colors(), size = 10)`.
 
@@ -1319,13 +1363,18 @@ We could also use a variable to determine the fill. Compare this to what you see
 
 
 ~~~
-ggplot(data = sample_data) +
-  aes(x = env_group, y = cells_per_ml) +
-  geom_boxplot(aes(fill=env_group))
+ggplot(data = september_nutrients) +
+  aes(x = Station, y = Chl_a) +
+  geom_boxplot(aes(fill=Station))
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-GapViolinFillMap-1.png" width="540" style="display: block; margin: auto;" />
+
+
+~~~
+Error: object 'september_nutrients' not found
+~~~
+{: .error}
 
 But what if we want to specify specific colors for our plots? The colors that
 ggplot uses are determined by the color "scale". Each aesthetic value we can
@@ -1334,27 +1383,37 @@ make them a bit prettier. We can do that by using the function `scale_fill_manua
 
 
 ~~~
-ggplot(data = sample_data) +
-  aes(x = env_group, y = cells_per_ml) +
-  geom_boxplot(aes(fill=env_group)) +
-  scale_fill_manual(values = c("pink", "tomato","orange1"))
+ggplot(data = september_nutrients) +
+  aes(x = Station, y = Chl_a) +
+  geom_boxplot(aes(fill=Station)) +
+  scale_fill_manual(values = c("pink", "tomato","orange1", "firebrick"))
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-GapViolinFillMan-1.png" width="540" style="display: block; margin: auto;" />
+
+
+~~~
+Error: object 'september_nutrients' not found
+~~~
+{: .error}
 
 Sometimes manually choosing colors is frustrating. There are many packages which produce pre-made palettes which you can supply to your data. A common one is `RColorBrewer`. We can use the palettes from RColorBrewer using the `scale_color_brewer` function. 
 
 
 ~~~
-ggplot(data = sample_data) +
-  aes(x = env_group, y = cells_per_ml) +
-  geom_boxplot(aes(fill=env_group)) +
+ggplot(data = september_nutrients) +
+  aes(x = Station, y = Chl_a) +
+  geom_boxplot(aes(fill=Station)) +
   scale_fill_brewer(palette = "Set1")
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-GapViolinFillBrew-1.png" width="540" style="display: block; margin: auto;" />
+
+
+~~~
+Error: object 'september_nutrients' not found
+~~~
+{: .error}
 
 The `scale_color_brewer()` function is just one of many you can use to change
 colors. There are bunch of "palettes" that are built-in. You can view them all
@@ -1382,19 +1441,19 @@ There are also lots of other fun options:
 > > ~~~
 > > #install.packages("wesanderson") # install package
 > > library(wesanderson)
-> > ggplot(data = sample_data) +
-> >   aes(x = temperature) +
-> >   labs(x = "Temperature (C)") +
-> >   aes(y = cells_per_ml) +
-> >   labs(y = "Cells per mL") +
-> >   geom_point() +
-> >   labs(title = "Does temperature affect microbial abundance?") +
-> >   aes(color = env_group) +
-> >   scale_color_manual(values = wes_palette('Cavalcanti1'))
+> > ggplot(data = september_nutrients) +
+> >  aes(x = Station, y = Chl_a) +
+> >  geom_boxplot(aes(fill=Station)) +
+> >  scale_fill_manual(values = wes_palette("Cavalcanti1"))
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-01-Color-1.png" width="540" style="display: block; margin: auto;" />
+> > 
+> > 
+> > ~~~
+> > Error: object 'september_nutrients' not found
+> > ~~~
+> > {: .error}
 > > {: .source}
 > {: .solution}
 {: .challenge}
@@ -1404,13 +1463,18 @@ There are also lots of other fun options:
 > > ## Solution
 > > 
 > > ~~~
-> > ggplot(data = sample_data) +
-> >   aes(x = env_group, y = cells_per_ml) +
+> > ggplot(data = september_nutrients) +
+> >   aes(x = Station, y = Chl_a) +
 > >   geom_boxplot(fill="darkblue", alpha = 0.5)
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-01-GapViolinFillSoln-1.png" width="540" style="display: block; margin: auto;" />
+> > 
+> > 
+> > ~~~
+> > Error: object 'september_nutrients' not found
+> > ~~~
+> > {: .error}
 > {: .solution}
 {: .challenge}
 
@@ -1418,13 +1482,18 @@ There are also lots of other fun options:
 > What happens if you run:
 > 
 > ~~~
->  ggplot(data = sample_data) +
->  aes(x = env_group, y = cells_per_ml) +
+>  ggplot(data = september_nutrients) +
+>  aes(x = Station, y = Chl_a) +
 >  geom_boxplot(aes(fill = "springgreen"))
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-01-GapViolinAesFillMap-1.png" width="540" style="display: block; margin: auto;" />
+> 
+> 
+> ~~~
+> Error: object 'september_nutrients' not found
+> ~~~
+> {: .error}
 > Why doesn't this work? How can you fix it? Where does that color come from?
 >
 > > ## Solution
@@ -1435,12 +1504,12 @@ There are also lots of other fun options:
 ## Univariate Plots
 _[Back to top](#contents)_
 
-We jumped right into making plots using multiple variables. But what if we wanted to take a look at just one column? In that case, we only need to specify a mapping for `x` and choose an appropriate geom. Let's start with a [histogram](https://www.thoughtco.com/what-is-a-histogram-3126359) to see the range and spread of the cell abundance values
+We jumped right into making plots using multiple variables. But what if we wanted to take a look at just one column? In that case, we only need to specify a mapping for `x` and choose an appropriate geom. Let's start with a [histogram](https://www.thoughtco.com/what-is-a-histogram-3126359) to see the range and spread of the chlorophyll values
 
 
 ~~~
-ggplot(sample_data) +
-  aes(x = cells_per_ml) +
+ggplot(september_nutrients) +
+  aes(x = Chl_a) +
   geom_histogram()
 ~~~
 {: .language-r}
@@ -1448,39 +1517,47 @@ ggplot(sample_data) +
 
 
 ~~~
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+Error: object 'september_nutrients' not found
 ~~~
-{: .output}
-
-<img src="../fig/rmd-01-GapLifeHist-1.png" width="540" style="display: block; margin: auto;" />
+{: .error}
 
 You should not only see the plot in the plot window, but also a message telling you to choose a better bin value. Histograms can look very different depending on the number of bars you decide to draw. The default is 30. Let's try setting a different value by explicitly passing a `bin=` argument to the `geom_histogram` later.
 
 
 ~~~
-ggplot(sample_data) +
-  aes(x = cells_per_ml) +
+ggplot(september_nutrients) +
+  aes(x = Chl_a) +
   geom_histogram(bins=10)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-GapLifeHistBins-1.png" width="540" style="display: block; margin: auto;" />
+
+
+~~~
+Error: object 'september_nutrients' not found
+~~~
+{: .error}
 
 Try different values like 5 or 50 to see how the plot changes.
 
 > ## Bonus Exercise: One variable plots
-> Rather than a histogram, choose one of the other geometries listed under "One Variable" plots on the ggplot [cheat sheet](https://ggplot2.tidyverse.org/). Note that we used `cells_per_ml` here which has continuous values. If you want to try the discrete options, try mapping `env_group` to x instead.
+> Rather than a histogram, choose one of the other geometries listed under "One Variable" plots on the ggplot [cheat sheet](https://ggplot2.tidyverse.org/). Note that we used `Chl_a` here which has continuous values. If you want to try the discrete options, try mapping `Station` to x instead.
 >
 > > ## Example solution
 > > 
 > > ~~~
-> > ggplot(sample_data) +
-> >   aes(x = cells_per_ml) +
+> > ggplot(september_nutrients) +
+> >   aes(x = Chl_a) +
 > >   geom_density()
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-01-GapLifeDens1-1.png" width="540" style="display: block; margin: auto;" />
+> > 
+> > 
+> > ~~~
+> > Error: object 'september_nutrients' not found
+> > ~~~
+> > {: .error}
 > {: .solution}
 {: .challenge}
 
@@ -1490,13 +1567,18 @@ Try different values like 5 or 50 to see how the plot changes.
 > > ## Example solution
 > > 
 > > ~~~
-> > ggplot(sample_data) +
-> >   aes(x = cells_per_ml) +
-> >   geom_density(aes(fill = env_group), alpha = 0.5)
+> > ggplot(september_nutrients) +
+> >   aes(x = Chl_a) +
+> >   geom_density(aes(fill = Station), alpha = 0.5)
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-01-GapLifeDens2-1.png" width="540" style="display: block; margin: auto;" />
+> > 
+> > 
+> > ~~~
+> > Error: object 'september_nutrients' not found
+> > ~~~
+> > {: .error}
 > {: .solution}
 {: .challenge}
 
@@ -1508,14 +1590,19 @@ Our plots are looking pretty nice, but what's with that grey background? While y
 
 
 ~~~
-ggplot(data = sample_data) +
-  aes(x = env_group, y = cells_per_ml) +
+ggplot(data = september_nutrients) +
+  aes(x = Station, y = Chl_a) +
   geom_boxplot() +
   theme_classic()
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-GapLifeHistBinsClassicTheme-1.png" width="540" style="display: block; margin: auto;" />
+
+
+~~~
+Error: object 'september_nutrients' not found
+~~~
+{: .error}
 
 Try out a few other themes, to see which you like: `theme_bw()`, `theme_linedraw()`, `theme_minimal()`.
 
@@ -1525,14 +1612,19 @@ Try out a few other themes, to see which you like: `theme_bw()`, `theme_linedraw
 > > ## Solution
 > > 
 > > ~~~
-> > ggplot(sample_data) +
-> >   aes(x = env_group, y = cells_per_ml) +
+> > ggplot(september_nutrients) +
+> >   aes(x = Station, y = Chl_a) +
 > >   geom_boxplot() +
 > >   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-01-GapLifeDens3-1.png" width="540" style="display: block; margin: auto;" />
+> > 
+> > 
+> > ~~~
+> > Error: object 'september_nutrients' not found
+> > ~~~
+> > {: .error}
 > {: .solution}
 {: .challenge}
 
@@ -1558,14 +1650,21 @@ ggsave("awesome_plot.jpg", width=6, height=4)
 > > ## Example solution
 > > 
 > > ~~~
-> > ggplot(sample_data) +
-> >   aes(x = cells_per_ml) +
+> > ggplot(september_nutrients) +
+> >   aes(x = Chl_a) +
 > >   geom_histogram(bins = 20)+
 > >   theme_classic()
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-01-savingPlotExercise-1.png" width="540" style="display: block; margin: auto;" />
+> > 
+> > 
+> > ~~~
+> > Error: object 'september_nutrients' not found
+> > ~~~
+> > {: .error}
+> > 
+> > 
 > > 
 > > ~~~
 > > ggsave("awesome_histogram.jpg", width=6, height=4)
@@ -1580,11 +1679,18 @@ You also might want to just temporarily save a plot while you're using R, so tha
 
 
 ~~~
-box_plot <- ggplot(data = sample_data) +
-                  aes(x = env_group, y = cells_per_ml) +
-                  geom_boxplot(aes(fill=env_group))
+box_plot <- ggplot(data = september_nutrients) +
+                  aes(x = Station, y = Chl_a) +
+                  geom_boxplot(aes(fill=Station))
 ~~~
 {: .language-r}
+
+
+
+~~~
+Error: object 'september_nutrients' not found
+~~~
+{: .error}
 
 Now if we want to see our plot again, we can just run:
 
@@ -1594,7 +1700,12 @@ box_plot
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-outputViolinPlot-1.png" width="540" style="display: block; margin: auto;" />
+
+
+~~~
+Error: object 'box_plot' not found
+~~~
+{: .error}
 
 We can also add changes to the plot. Let's say we want our boxplot to have the black-and-white theme:
 
@@ -1604,7 +1715,12 @@ box_plot + theme_bw()
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-violinPlotBWTheme-1.png" width="540" style="display: block; margin: auto;" />
+
+
+~~~
+Error: object 'box_plot' not found
+~~~
+{: .error}
 
 Watch out! Adding the theme does not change the `box_plot` object! If we want to change the object, we need to store our changes:
 
@@ -1614,16 +1730,40 @@ box_plot
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-violinPlotBWThemeUpdated-1.png" width="540" style="display: block; margin: auto;" />
+
+
+~~~
+Error: object 'box_plot' not found
+~~~
+{: .error}
+
+
 
 ~~~
 box_plot <- box_plot + theme_bw()
+~~~
+{: .language-r}
 
+
+
+~~~
+Error: object 'box_plot' not found
+~~~
+{: .error}
+
+
+
+~~~
 box_plot
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-violinPlotBWThemeUpdated-2.png" width="540" style="display: block; margin: auto;" />
+
+
+~~~
+Error: object 'box_plot' not found
+~~~
+{: .error}
 
 We can also save any plot object we have named, even if they were not the plot that we ran most recently. We just have to tell `ggsave()` which plot we want to save:
 
@@ -1634,20 +1774,39 @@ ggsave("awesome_box_plot.jpg", plot = box_plot, width=6, height=4)
 {: .language-r}
 
 > ## Bonus Exercise: Create and save a plot
-> Now try it yourself! Create your own plot using `ggplot()`, store it in an object named `my_plot`, and save the plot using `ggsave()`.
+> Now try it yourself! Create your own plot of ammonium (`NH4`) across our stations using `ggplot()`, store it in an object named `my_plot`, and save the plot using `ggsave()`.
 >
 > > ## Example solution
 > > 
 > > ~~~
-> > my_plot <- ggplot(data = sample_data)+
-> >   aes(x = env_group, y = temperature)+
+> > my_plot <- ggplot(data = september_nutrients)+
+> >   aes(x = Station, y = NH4)+
 > >   geom_boxplot(fill = "orange")+
 > >   theme_bw()+
-> >   labs(x = "env_group", y = "Temperature (C)")
+> >   labs(x = "Station", y = "NH4 (mg/L as N)")
+> > ~~~
+> > {: .language-r}
 > > 
+> > 
+> > 
+> > ~~~
+> > Error: object 'september_nutrients' not found
+> > ~~~
+> > {: .error}
+> > 
+> > 
+> > 
+> > ~~~
 > > ggsave("my_awesome_plot.jpg", plot = my_plot, width=6, height=4)
 > > ~~~
 > > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > Error: object 'my_plot' not found
+> > ~~~
+> > {: .error}
 > {: .solution}
 {: .challenge}
 

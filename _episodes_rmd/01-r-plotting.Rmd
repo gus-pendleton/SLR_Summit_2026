@@ -698,7 +698,7 @@ To start, we will read in the data using `read_csv`.
 # required for below code chunks to work.
 # currently, gapminder isn't in a data folder on learners' machines
 # because they haven't done the unix lesson yet.
-water_quality_oliver <- read_csv("data/water_quality_oliver.csv")
+water_quality_oliver <- read_csv("../data/water_quality_oliver.csv")
 ```
 
 > ## Read in your own data
@@ -711,7 +711,7 @@ water_quality_oliver <- read_csv("data/water_quality_oliver.csv")
 >
 > > ## Solution
 > >
-> > ```{r ImportFullDataSolutionEcho, eval = FALSE}
+> > ```{r ImportFullDataSolutionEcho2, eval = FALSE}
 > > water_quality_oliver <- read_csv("water_quality_oliver.csv")
 > > ```
 > {: .solution}
@@ -870,7 +870,7 @@ We are going to read in one more dataset to practice some new plot types. This t
 >
 > What argument should be provided in the below code to read in the full dataset?
 >
-> ```{r ImportFullData, eval = FALSE}
+> ```{r ImportFullDataNut, eval = FALSE}
 > september_nutrients <- read_csv()
 > ```
 >
