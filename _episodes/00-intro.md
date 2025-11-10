@@ -31,7 +31,7 @@ We expect that instructors, helpers, and learners abide by this code of conduct,
 
 We have an enthusiastic team today! The instructors and helpers will introduce themselves and what they'll be teaching/helping with.
 
-## The etherpad & introducing participants
+## The Google Doc & introducing participants
 
 Now it's time for the participants to introduce themselves. 
 Instead of verbally, the participants will use this [Google Doc](https://docs.google.com/document/d/1SjEc-VzjyRA2-hxxtNouIhJy0d_xMKUw5_K3xm1QaEE/edit?usp=sharing) to write out their introduction. 

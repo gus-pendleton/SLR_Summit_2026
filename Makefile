@@ -114,8 +114,7 @@ MARKDOWN_SRC = \
   index.md \
   setup.md \
   $(sort $(wildcard _episodes/*.md)) \
-  $(sort $(wildcard _extras/*.md)) \
-  LICENSE.md
+  $(sort $(wildcard _extras/*.md))
 
 # Generated lesson files in the order they appear in the navigation menu.
 HTML_DST = \
@@ -124,8 +123,7 @@ HTML_DST = \
   ${DST}/setup/index.html \
   $(patsubst _episodes/%.md,${DST}/%/index.html,$(sort $(wildcard _episodes/*.md))) \
   ${DST}/reference.html \
-  $(patsubst _extras/%.md,${DST}/%/index.html,$(sort $(wildcard _extras/*.md))) \
-  ${DST}/license/index.html
+  $(patsubst _extras/%.md,${DST}/%/index.html,$(sort $(wildcard _extras/*.md)))
 
 ## * install-rmd-deps : Install R packages dependencies to build the RMarkdown lesson
 install-rmd-deps:

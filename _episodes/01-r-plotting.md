@@ -60,7 +60,7 @@ editor_options:
 # Introduction to R and RStudio
 _[Back to top](#contents)_
 
-Over this workshopm we will be working with data gathered by the Lake Superior National Estuarine Research Reserve (LSNERR), as part of their system-wide monitoring program (SWMP). SWMP encompasses frequent and high-quality water quality, weather, nutrient, and wetland plant community data, and is **always** publicly available. You can access SWMP data here. For this workshop, we'll work with a subset of these data, to analyse trends in water quality across the estuary. 
+Over this workshopm we will be working with data gathered by the Lake Superior National Estuarine Research Reserve (LSNERR), as part of their system-wide monitoring program (SWMP). SWMP encompasses frequent and high-quality water quality, weather, nutrient, and wetland plant community data, and is **always** publicly available. You can access SWMP data [here](https://lakesuperiornerr.org/resources-publications-data/). For this workshop, we'll work with a subset of these data, to analyse trends in water quality across the estuary. 
 
 To do this, we'll need two things: data and a platform to analyze the data.
 
@@ -68,7 +68,7 @@ You already [downloaded the data]({{ page.root }}/setup.html). But what platform
 
 We could try to use a spreadsheet program like Microsoft Excel or Google sheets that have limited access, less flexibility, and don't easily allow for things that are critical to ["reproducible" research](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003285), like easily sharing the steps used to explore and make changes to the original data.
 
-Instead, we'll use a programming language to test our hypothesis. Today we will use R, but we could have also used Python for the same reasons we chose R (and we teach workshops for both languages). Both R and Python are freely available, the instructions you use to do the analysis are easily shared, and by using reproducible practices, it's straightforward to add more data or to change settings like colors or the size of a plotting symbol.
+Instead, we'll use a programming language to test our hypothesis. Today we will use R, but we could have also used Python for the same reasons we chose R. Both R and Python are freely available, the instructions you use to do the analysis are easily shared, and by using reproducible practices, it's straightforward to add more data or to change settings like colors or the size of a plotting symbol.
 
 > ## But why R and not Python?
 > [There's no great reason](http://www.academichermit.com/2020/03/23/Why-R.html).
@@ -80,7 +80,7 @@ To run R, all you really need is the R program, which is available for computers
 
 To make your life in R easier, there is a great (and free!) program called RStudio that you also downloaded and used during [set up]({{ page.root }}/setup.html). As we work today, we'll use features that are available in RStudio for writing and running code, managing projects, installing packages, getting help, and much more. It is important to remember that R and RStudio are different, but complementary programs. You need R to use RStudio.
 
-> Bonus Exercise: Can you think of a reason you might not want to use RStudio?
+> ## Bonus Exercise: Can you think of a reason you might not want to use RStudio?
 >
 > > ## Solution:
 > > On some high-performance computer systems (e.g. Amazon Web Services) you typically can't get a display like RStudio to open. In that case, you'll write your code in R Scripts, and then run those scripts from the command line.
@@ -159,7 +159,7 @@ As you write more code, you can highlight multiple lines and then click <kbd>Run
 # Introduction to the Tidyverse
 _[Back to top](#contents)_
 
-In this session we will learn how to read data into R and plot it, allowing us to explore how environmental variables affect the microbes of Lake Ontario. We'll use functions from the `tidyverse` to make working with our data easier. 
+In this session we will learn how to read data into R and plot it, allowing us to explore environmental data from the estuary. We'll use functions from the `tidyverse` to make working with our data easier. 
 
 > ## The tidyverse vs Base R
 > If you've used R before, you may have learned commands that are different than the ones we will be using during this workshop. We will be focusing on functions from the [tidyverse](https://www.tidyverse.org/). The "tidyverse" is a collection of R packages that have been designed to work well together and offer many convenient features that do not come with a fresh install of R (aka "base R"). These packages are very popular and have a lot of developer support including many staff members from RStudio. These functions generally help you to write code that is easier to read and maintain. We believe learning these tools will help you become more productive more quickly.
@@ -177,13 +177,13 @@ library(tidyverse)
 
 
 ~~~
-── Attaching core tidyverse packages ────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 2.0.0 ──
+── Attaching core tidyverse packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.4     ✔ readr     2.1.5
 ✔ forcats   1.0.1     ✔ stringr   1.6.0
 ✔ ggplot2   4.0.0     ✔ tibble    3.3.0
 ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
 ✔ purrr     1.2.0     
-── Conflicts ──────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+── Conflicts ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()
 ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
@@ -197,9 +197,7 @@ library(tidyverse)
 > information about what happened when you loaded `tidyverse`. The `tidyverse` is
 > actually a collection of several different packages, so the first section of the
 > message tells us what packages were installed when we loaded `tidyverse` (these
-> include `ggplot2`, which we'll be using a lot in this lesson, and `dyplr`, which
-> you'll be introduced to tomorrow in the 
-> [R for Data Analysis lesson]({{ page.root }}/05-r-markdown)).
+> include `ggplot2`, which we'll be using a lot in this lesson)
 >
 > The second section of messages gives a list of "conflicts." Sometimes, the
 > same function name will be used in two different packages, and R has to decide
@@ -218,7 +216,7 @@ library(tidyverse)
 {: .callout}
 
 
-> ## Pro-tip
+> ## Pro-tip: Cheat sheets
 >
 > Those of us that use R on a daily basis use cheat sheets to help us remember how to use various R functions.
 >
@@ -243,7 +241,7 @@ water_quality <- read_csv("water_quality.csv")
 
 ~~~
 Rows: 306 Columns: 9
-── Column specification ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+── Column specification ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 Delimiter: ","
 chr (1): Station
 dbl (8): Year, DayofYear, Temp, Conductivity, DO, pH, Turbidity, ChlFluor
@@ -264,7 +262,7 @@ Look at the "Environment" tab. Here you will see a list of all the objects you'v
 
 We see that our data has 9 columns (variables).
 
-We have the Year, and DayofYear (from 1 to 365), as well as the Station where these samples were taken. Reference the map below to see these stations' locations. We also have temperature ("Temp", in °C), Conductivity (mS/cm), Dissolved Oxygen ("DO", in mg/L), pH, Turbidity (NTU), and chlorophyll fluorescence ("ChlFluor", in RFU). These data are a subset of the full SWMP data that's available - we're only using one sample per week from 2022-2024, while the real SWMP data extends to 2012 and has samples every fifteen minutes!
+We have the Year, and DayofYear (from 1 to 365), as well as the Station where these samples were taken. Reference the map below to see these stations' locations. We also have temperature (`Temp`, in °C), Conductivity (mS/cm), Dissolved Oxygen (`DO`, in mg/L), pH, Turbidity (NTU), and chlorophyll fluorescence (`ChlFluor`, in RFU). These data are a subset of the full SWMP data that's available - we're only using one sample per week from 2022-2024, while the real SWMP data extends to 2012 and has samples every fifteen minutes!
 
 <img src="{{ page.root }}/fig/r-plotting/station_map.png" width="600"/>
 
@@ -359,14 +357,16 @@ Error in read_csv(): argument "file" is missing, with no default
 We get an error message. Don't panic! Error messages pop up all the time, and can be super helpful in debugging code.
 
 > ## Warnings and Errors
+>
 > It's important to differentiate between Warnings and Errors in R. A warning tells us, "you might want to know about this issue, but R still did what you asked". An error tells us, "there's something wrong with your code or your data and R didn't do what you asked". You need to fix any errors that arise. Warnings, on the other hand, are probably best to resolve or at least understand why they are coming up.
-{.callout}
+>
+{: .callout}
 
 In this case, the message tells us "argument "file" is missing, with no default." Many functions, including `read_csv`, require additional pieces of information to do their job. We call these additional values "arguments" or "parameters." You pass **arguments** to a function by placing values in between the parenthesis. A function takes in these arguments and does some tasks behind the scenes to output something we're interested in.
 
 For example, when we loaded in our data, the command contained `"water_quality.csv"` inside the `read_csv()` function. This is the value we assigned to the file argument. But we didn't say that that was the file. How does that work?
 
-> ## Pro-tip
+> ## Pro-tip: Help pages
 >
 > Each function has a help page that documents what arguments the function
 > expects and what value it will return. You can bring up the help page a few
@@ -378,7 +378,7 @@ For example, when we loaded in our data, the command contained `"water_quality.c
 > useful examples of the function in action. As you can see, the first
 > **argument** of `read_csv` is the file path.
 >
-{: .callout}
+{: .testimonial}
 
 The `read_csv()` function took the file path we provided, did who-knows-what behind the scenes, and then outputted an R object with the data stored in that csv file. All that, with one short line of code!
 
@@ -393,7 +393,7 @@ Sys.Date()
 
 
 ~~~
-[1] "2025-11-07"
+[1] "2025-11-10"
 ~~~
 {: .output}
 
@@ -491,7 +491,7 @@ Sometimes it is helpful - or even necessary - to include the argument name, but 
 > 
 > 
 > ~~~
-> [1] "2025-11-07"
+> [1] "2025-11-10"
 > ~~~
 > {: .output}
 > 
@@ -529,9 +529,36 @@ Sometimes it is helpful - or even necessary - to include the argument name, but 
 > {: .language-r}
 > 
 > ~~~
-> Error: 'data/water_quality.csv' does not exist in current working directory ('/Users/augustuspendleton/Desktop/Coding/Carpentries_Workshops/SLR_Summit_Workshop/_episodes_rmd').
+> Rows: 306 Columns: 9
+> ── Column specification ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+> Delimiter: ","
+> chr (1): Station
+> dbl (8): Year, DayofYear, Temp, Conductivity, DO, pH, Turbidity, ChlFluor
+> 
+> ℹ Use `spec()` to retrieve the full column specification for this data.
+> ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 > ~~~
-> {: .error}
+> {: .output}
+> 
+> 
+> 
+> ~~~
+> # A tibble: 306 × 9
+>     Year DayofYear Station  Temp Conductivity    DO    pH Turbidity ChlFluor
+>    <dbl>     <dbl> <chr>   <dbl>        <dbl> <dbl> <dbl>     <dbl>    <dbl>
+>  1  2022       107 Barkers   1.2         0.24  12.6   7.5        13      8.8
+>  2  2022       114 Barkers   1.3         0.24  12.3   7.6        14     11.5
+>  3  2022       121 Barkers   3.4         0.16  12.5   7.6        21     13.1
+>  4  2022       128 Barkers  11.3         0.18  11.6   7.7        13     40.5
+>  5  2022       135 Barkers  13.7         0.16   9.8   7.5        19     23.6
+>  6  2022       142 Barkers  13           0.15   8.8   7.4        10     28.2
+>  7  2022       149 Barkers  13.2         0.15   8.6   7.4        12     21.8
+>  8  2022       156 Barkers  16.3         0.15   8.1   7.4         9      9  
+>  9  2022       163 Barkers  17.9         0.15   7.5   7.4        12     11.2
+> 10  2022       170 Barkers  17.2         0.15   7.8   7.5        14      8.2
+> # ℹ 296 more rows
+> ~~~
+> {: .output}
 {: .callout}
 
 
@@ -579,9 +606,7 @@ access the columns of `water_quality` using the object's column names.
 names exactly!)
 
 We are going to start by testing whether there is a relationship between temperature and dissolved oxygen, so let's start by telling our plot object that we want to map our temperature values to the x axis of our plot. We do this by adding (`+`) information to
-our plot object. Add this new line to your code and run both lines by
-highlighting them and pressing <kbd>Ctrl</kbd>+<kbd>Enter</kbd> on your
-keyboard:
+our plot object. Add this new line to your code, ensure your cursor is somewhere within these commands, and run both lines by pressing <kbd>Ctrl</kbd>+<kbd>Enter</kbd> on your keyboard:
 
 
 ~~~
@@ -672,7 +697,7 @@ ggplot(data = water_quality) +
 
 Now we're really getting somewhere. It finally looks like a proper plot!  We can
 now see a trend in the data. It looks like samples with a higher temperature tend to
-have higher dissolved oxygen. Let's add a title to our plot to make that
+have lower dissolved oxygen. Let's add a title to our plot to make that
 clearer. Again, we will use the `labs()` function, but this time we will use the
 `title =` argument.
 
@@ -691,7 +716,7 @@ ggplot(data = water_quality) +
 <img src="../fig/rmd-01-FirstPlotAddTitle-1.png" width="540" style="display: block; margin: auto;" />
 
 No one can deny we've made a very handsome plot! But now looking at the data, we
-might be curious about learning more - for example, we know these data were taken at four different stations. Maybe we are curious if the trend between temperature and oxygen is consistent between our three environmental groups. One thing we
+might be curious about learning more - for example, we know these data were taken at four different stations. Maybe we are curious if the trend between temperature and oxygen is consistent between these stations. One thing we
 could do is use a different color for each of these groups. To map the
 `Station` of each point to a color, we will again use the `aes()` function:
 
@@ -712,9 +737,7 @@ ggplot(data = water_quality) +
 
 Here we can see that Pokegama samples consistently have lower oxygen than the other stations. Notice that when we add a mapping for
 color, ggplot automatically provided a legend for us. It took care of assigning
-different colors to each of our unique values of the `Station` variable. (Note
-that when we mapped the x and y values, those drew the actual axis labels, so in
-a way the axes are like the legends for the x and y values). 
+different colors to each of our unique values of the `Station` variable. 
 
 What other variables might help explain Pokegama's unique decrease in oxygen? Let's find out by mapping the turbidity (or "cloudiness") of each sample to the size of our points.
 
@@ -785,7 +808,7 @@ in the **Plots** tab - it will break free from the lower right corner and open
 the plot in its own window.
 
 > ## Changing shapes
-> Instead of (or in addition to) color, change the shape of the points so each Station has a different shape. (I'm not saying this is a great thing to do - it's just for practice!) HINT: Is size an aesthetic or a geometry? If you're stuck, feel free to Google it, or look at the help menu.
+> Instead of (or in addition to) color, change the shape of the points so each Station has a different shape. (I'm not saying this is a great thing to do - it's just for practice!) HINT: Is shape an aesthetic or a geometry? If you're stuck, feel free to Google it, or look at the help menu.
 > {: .source}
 >
 > > ## Solution
@@ -912,16 +935,18 @@ head(water_quality_oliver)
 > 
 > ~~~
 >  ggplot(data = water_quality_oliver) +
->  aes(x=DayofYear, y=Conductivity) +
->  geom_point()
+>    aes(x=DayofYear, y=Conductivity) +
+>    geom_point()
 > ~~~
 > {: .language-r}
-> 
-> <img src="../fig/rmd-01-PlotFullGapminder-1.png" width="540" style="display: block; margin: auto;" />
 >
+> > ## Solution
+> > <img src="../fig/rmd-01-PlotFullGapmindersolutions-1.png" width="540" style="display: block; margin: auto;" />
+> {: .solution}
+> 
 {: .challenge}
 
-Hmm, the plot we created in the last exercise is a good start but it's hard to tell which points should be connected in this time series. What's going on? Since the dataset is more complex, the plotting options we used for the smaller dataset aren't as useful for interpreting these data. Luckily, we can add additional attributes to our plots that will make patterns more apparent. For example, we can generate a different type of plot -- perhaps a line plot -- and assign attributes for columns where we might expect to see patterns.
+Hmm, the plot we created in the last exercise is a good start but it's hard to tell which points should be connected in this time series. Luckily, we can add additional attributes to our plots that will make patterns more apparent. For example, we can generate a different type of plot -- perhaps a line plot -- and assign attributes for columns where we might expect to see patterns.
 
 Let's review the columns and the types of data stored in our dataset to decide how we should group things together. To get an overview of our data object, we can look at the structure of `water_quality_oliver` using the `head()` function.
 
@@ -930,7 +955,7 @@ head(water_quality_oliver)
 ~~~
 {: .language-r}
 
-> ## Pro-tip
+> ## Pro-tip: `glimpse()`
 >
 > The tidyverse also comes with a function for quickly seeing the structure of your `data.frame` called `glimpse()`. Try it and compare to the output from `head()`!
 >
@@ -1158,10 +1183,13 @@ We've previously used the discrete values of the `Station` column to color our p
 > > {: .warning}
 > > 
 > > <img src="../fig/rmd-01-GapBox-1.png" width="540" style="display: block; margin: auto;" />
+> > Good job! Note that there was one warning, saying that one row was removed. This is because one of the rows has `NA`, which is R's word for missing data. 
+> > This is a case where the warning was helpful (we know at least one datapoint was removed/missing), but we don't need to do anything else about it. 
+> > If you had a warning that many rows were removed, that would be a good time to look more closely at your data!
 > {: .solution}
 {: .challenge}
 
-This type of visualization makes it easy to compare the range and spread of values across groups. The "middle" 50% of the data is located inside the box and outliers that are far away from the central mass of the data are drawn as points.
+This type of visualization makes it easy to compare the range and spread of values across groups. The "middle" 50% of the data is located inside the box, and the median is the center line. The minimum and maximum values are the lines extending from the box, and outliers that are far away from the central mass of the data are drawn as points.
 
 > ## Bonus Exercise: Other discrete geoms
 > Take a look a the ggplot "data visualization" [cheat sheet](https://ggplot2.tidyverse.org/). Find all the geoms listed under "one discrete, one continuous". Try replacing `geom_boxplot` with one of these other functions.
@@ -1174,13 +1202,6 @@ This type of visualization makes it easy to compare the range and spread of valu
 > >   geom_violin()
 > > ~~~
 > > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Warning: Removed 1 row containing non-finite outside the scale range (`stat_ydensity()`).
-> > ~~~
-> > {: .warning}
 > > 
 > > <img src="../fig/rmd-01-GapViol-1.png" width="540" style="display: block; margin: auto;" />
 > {: .solution}
@@ -1199,13 +1220,6 @@ ggplot(data = september_nutrients) +
 ~~~
 {: .language-r}
 
-
-
-~~~
-Warning: Removed 1 row containing non-finite outside the scale range (`stat_boxplot()`).
-~~~
-{: .warning}
-
 <img src="../fig/rmd-01-GapViolin-1.png" width="540" style="display: block; margin: auto;" />
 
 Box plots are a great way to see the overall spread of your data. However, it is good practice to also give your reader as sense of how many observations have gone into your boxplots. To do so, we can plot each observation as an individual point, on top of the boxplot.
@@ -1218,20 +1232,6 @@ ggplot(data = september_nutrients) +
   geom_point()
 ~~~
 {: .language-r}
-
-
-
-~~~
-Warning: Removed 1 row containing non-finite outside the scale range (`stat_boxplot()`).
-~~~
-{: .warning}
-
-
-
-~~~
-Warning: Removed 1 row containing missing values or values outside the scale range (`geom_point()`).
-~~~
-{: .warning}
 
 <img src="../fig/rmd-01-GapViolinPoints-1.png" width="540" style="display: block; margin: auto;" />
 
@@ -1246,23 +1246,9 @@ ggplot(data = september_nutrients) +
 ~~~
 {: .language-r}
 
-
-
-~~~
-Warning: Removed 1 row containing non-finite outside the scale range (`stat_boxplot()`).
-~~~
-{: .warning}
-
-
-
-~~~
-Warning: Removed 1 row containing missing values or values outside the scale range (`geom_point()`).
-~~~
-{: .warning}
-
 <img src="../fig/rmd-01-GapViolinJitter-1.png" width="540" style="display: block; margin: auto;" />
 
-Be aware that these movements are random so your plot will look a bit different each time you run it!
+Good for us to keep in mind that Barkers has many more observations than the other stations. Be aware that these movements are random so your plot will look a bit different each time you run it!
 
 Now let's try switching the order of `geom_boxplot` and `geom_jitter`. What happens? Why?
 
@@ -1275,25 +1261,24 @@ ggplot(data = september_nutrients) +
 ~~~
 {: .language-r}
 
-
-
-~~~
-Warning: Removed 1 row containing non-finite outside the scale range (`stat_boxplot()`).
-~~~
-{: .warning}
-
-
-
-~~~
-Warning: Removed 1 row containing missing values or values outside the scale range (`geom_point()`).
-~~~
-{: .warning}
-
 <img src="../fig/rmd-01-GapViolinJitterLayers-1.png" width="540" style="display: block; margin: auto;" />
 
 Since we plot the `geom_jitter` layer first, the  boxplot layer is placed on top of the `geom_jitter` layer, so we cannot see most of the points.
 
-Note that each layer can have it's own set of aesthetic mappings. So far we've been using `aes()` outside of the other functions. When we do this, we are setting the "default" aesthetic mappings for the plot. We could do the same thing by passing the values to the `ggplot()` function call as is sometimes more common:
+Note that each layer can have it's own set of aesthetic mappings. So far we've been using `aes()` outside of the other functions. When we do this, we are setting the "default" aesthetic mappings for the plot. 
+
+
+~~~
+ggplot(data = september_nutrients) +
+  aes(x = Station, y = Chl_a) + 
+  geom_boxplot() +
+  geom_jitter()
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-01-GapViolinJitter2-1.png" width="540" style="display: block; margin: auto;" />
+
+We could do the same thing by passing the values to the `ggplot()` function call as is sometimes more common:
 
 
 ~~~
@@ -1303,50 +1288,22 @@ ggplot(data = september_nutrients, mapping = aes(x = Station, y = Chl_a)) +
 ~~~
 {: .language-r}
 
+<img src="../fig/rmd-01-GapViolinJitterinside-1.png" width="540" style="display: block; margin: auto;" />
 
-
-~~~
-Warning: Removed 1 row containing non-finite outside the scale range (`stat_boxplot()`).
-~~~
-{: .warning}
-
-
-
-~~~
-Warning: Removed 1 row containing missing values or values outside the scale range (`geom_point()`).
-~~~
-{: .warning}
-
-<img src="../fig/rmd-01-GapViolinJitter2-1.png" width="540" style="display: block; margin: auto;" />
-
-However, we can also use aesthetic values for only one layer of our plot. To do that, you an place an additional `aes()` inside of that layer. For example, what if we want to change the size for the points so they are scaled by phosphate, but we don't want to change the box plot? We can do:
+However, we can also use aesthetic values for only one layer of our plot. To do that, you an place an additional `aes()` inside of that layer. For example, what if we want to change the color for the points so they are scaled by phosphate, but we don't want to change the box plot? We can do:
 
 
 ~~~
 ggplot(data = september_nutrients) +
   aes(x = Station, y = Chl_a) +
   geom_boxplot() +
-  geom_jitter(aes(size = PO4))
+  geom_jitter(aes(color = PO4))
 ~~~
 {: .language-r}
 
-
-
-~~~
-Warning: Removed 1 row containing non-finite outside the scale range (`stat_boxplot()`).
-~~~
-{: .warning}
-
-
-
-~~~
-Warning: Removed 1 row containing missing values or values outside the scale range (`geom_point()`).
-~~~
-{: .warning}
-
 <img src="../fig/rmd-01-GapViolinJitterAes-1.png" width="540" style="display: block; margin: auto;" />
 
-Both `geom_boxplot` and `geom_jitter` will inherit the default values of `aes(Station, Chl_a)` but only `geom_jitter` will also use `aes(size = PO4)`.
+Both `geom_boxplot` and `geom_jitter` will inherit the default values of `aes(Station, Chl_a)` but only `geom_jitter` will also use `aes(color = PO4)`.
 
 > ## Functions within functions
 >
@@ -1389,13 +1346,6 @@ ggplot(data = september_nutrients) +
 ~~~
 {: .language-r}
 
-
-
-~~~
-Warning: Removed 1 row containing non-finite outside the scale range (`stat_boxplot()`).
-~~~
-{: .warning}
-
 <img src="../fig/rmd-01-GapViolinColor-1.png" width="540" style="display: block; margin: auto;" />
 
 Well, that didn't get all that colorful. That's because objects like these boxplots have two different parts that have a color: the shape outline, and the inner part of the shape. For geoms that have an inner part, you change the fill color with `fill=` rather than `color=`, so let's try that instead
@@ -1407,13 +1357,6 @@ ggplot(data = september_nutrients) +
   geom_boxplot(fill="pink")
 ~~~
 {: .language-r}
-
-
-
-~~~
-Warning: Removed 1 row containing non-finite outside the scale range (`stat_boxplot()`).
-~~~
-{: .warning}
 
 <img src="../fig/rmd-01-GapViolinFill-1.png" width="540" style="display: block; margin: auto;" />
 
@@ -1434,13 +1377,6 @@ ggplot(data = september_nutrients) +
 ~~~
 {: .language-r}
 
-
-
-~~~
-Warning: Removed 1 row containing non-finite outside the scale range (`stat_boxplot()`).
-~~~
-{: .warning}
-
 <img src="../fig/rmd-01-GapViolinFillMap-1.png" width="540" style="display: block; margin: auto;" />
 
 But what if we want to specify specific colors for our plots? The colors that
@@ -1457,13 +1393,6 @@ ggplot(data = september_nutrients) +
 ~~~
 {: .language-r}
 
-
-
-~~~
-Warning: Removed 1 row containing non-finite outside the scale range (`stat_boxplot()`).
-~~~
-{: .warning}
-
 <img src="../fig/rmd-01-GapViolinFillMan-1.png" width="540" style="display: block; margin: auto;" />
 
 Sometimes manually choosing colors is frustrating. There are many packages which produce pre-made palettes which you can supply to your data. A common one is `RColorBrewer`. We can use the palettes from RColorBrewer using the `scale_color_brewer` function. 
@@ -1476,13 +1405,6 @@ ggplot(data = september_nutrients) +
   scale_fill_brewer(palette = "Set1")
 ~~~
 {: .language-r}
-
-
-
-~~~
-Warning: Removed 1 row containing non-finite outside the scale range (`stat_boxplot()`).
-~~~
-{: .warning}
 
 <img src="../fig/rmd-01-GapViolinFillBrew-1.png" width="540" style="display: block; margin: auto;" />
 
@@ -1519,13 +1441,6 @@ There are also lots of other fun options:
 > > ~~~
 > > {: .language-r}
 > > 
-> > 
-> > 
-> > ~~~
-> > Warning: Removed 1 row containing non-finite outside the scale range (`stat_boxplot()`).
-> > ~~~
-> > {: .warning}
-> > 
 > > <img src="../fig/rmd-01-Color-1.png" width="540" style="display: block; margin: auto;" />
 > > {: .source}
 > {: .solution}
@@ -1542,13 +1457,6 @@ There are also lots of other fun options:
 > > ~~~
 > > {: .language-r}
 > > 
-> > 
-> > 
-> > ~~~
-> > Warning: Removed 1 row containing non-finite outside the scale range (`stat_boxplot()`).
-> > ~~~
-> > {: .warning}
-> > 
 > > <img src="../fig/rmd-01-GapViolinFillSoln-1.png" width="540" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
@@ -1562,13 +1470,6 @@ There are also lots of other fun options:
 >  geom_boxplot(aes(fill = "springgreen"))
 > ~~~
 > {: .language-r}
-> 
-> 
-> 
-> ~~~
-> Warning: Removed 1 row containing non-finite outside the scale range (`stat_boxplot()`).
-> ~~~
-> {: .warning}
 > 
 > <img src="../fig/rmd-01-GapViolinAesFillMap-1.png" width="540" style="display: block; margin: auto;" />
 > Why doesn't this work? How can you fix it? Where does that color come from?
@@ -1598,13 +1499,6 @@ ggplot(september_nutrients) +
 ~~~
 {: .output}
 
-
-
-~~~
-Warning: Removed 1 row containing non-finite outside the scale range (`stat_bin()`).
-~~~
-{: .warning}
-
 <img src="../fig/rmd-01-GapLifeHist-1.png" width="540" style="display: block; margin: auto;" />
 
 You should not only see the plot in the plot window, but also a message telling you to choose a better bin value. Histograms can look very different depending on the number of bars you decide to draw. The default is 30. Let's try setting a different value by explicitly passing a `bin=` argument to the `geom_histogram` later.
@@ -1616,13 +1510,6 @@ ggplot(september_nutrients) +
   geom_histogram(bins=10)
 ~~~
 {: .language-r}
-
-
-
-~~~
-Warning: Removed 1 row containing non-finite outside the scale range (`stat_bin()`).
-~~~
-{: .warning}
 
 <img src="../fig/rmd-01-GapLifeHistBins-1.png" width="540" style="display: block; margin: auto;" />
 
@@ -1640,13 +1527,6 @@ Try different values like 5 or 50 to see how the plot changes.
 > > ~~~
 > > {: .language-r}
 > > 
-> > 
-> > 
-> > ~~~
-> > Warning: Removed 1 row containing non-finite outside the scale range (`stat_density()`).
-> > ~~~
-> > {: .warning}
-> > 
 > > <img src="../fig/rmd-01-GapLifeDens1-1.png" width="540" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
@@ -1662,13 +1542,6 @@ Try different values like 5 or 50 to see how the plot changes.
 > >   geom_density(aes(fill = Station), alpha = 0.5)
 > > ~~~
 > > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Warning: Removed 1 row containing non-finite outside the scale range (`stat_density()`).
-> > ~~~
-> > {: .warning}
 > > 
 > > <img src="../fig/rmd-01-GapLifeDens2-1.png" width="540" style="display: block; margin: auto;" />
 > {: .solution}
@@ -1689,13 +1562,6 @@ ggplot(data = september_nutrients) +
 ~~~
 {: .language-r}
 
-
-
-~~~
-Warning: Removed 1 row containing non-finite outside the scale range (`stat_boxplot()`).
-~~~
-{: .warning}
-
 <img src="../fig/rmd-01-GapLifeHistBinsClassicTheme-1.png" width="540" style="display: block; margin: auto;" />
 
 Try out a few other themes, to see which you like: `theme_bw()`, `theme_linedraw()`, `theme_minimal()`.
@@ -1712,13 +1578,6 @@ Try out a few other themes, to see which you like: `theme_bw()`, `theme_linedraw
 > >   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 > > ~~~
 > > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Warning: Removed 1 row containing non-finite outside the scale range (`stat_boxplot()`).
-> > ~~~
-> > {: .warning}
 > > 
 > > <img src="../fig/rmd-01-GapLifeDens3-1.png" width="540" style="display: block; margin: auto;" />
 > {: .solution}
@@ -1753,26 +1612,12 @@ ggsave("awesome_plot.jpg", width=6, height=4)
 > > ~~~
 > > {: .language-r}
 > > 
-> > 
-> > 
-> > ~~~
-> > Warning: Removed 1 row containing non-finite outside the scale range (`stat_bin()`).
-> > ~~~
-> > {: .warning}
-> > 
 > > <img src="../fig/rmd-01-savingPlotExercise-1.png" width="540" style="display: block; margin: auto;" />
 > > 
 > > ~~~
 > > ggsave("awesome_histogram.jpg", width=6, height=4)
 > > ~~~
 > > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Warning: Removed 1 row containing non-finite outside the scale range (`stat_bin()`).
-> > ~~~
-> > {: .warning}
 > >
 > > Check your current working directory to find the plot!
 > {: .solution}
@@ -1796,13 +1641,6 @@ box_plot
 ~~~
 {: .language-r}
 
-
-
-~~~
-Warning: Removed 1 row containing non-finite outside the scale range (`stat_boxplot()`).
-~~~
-{: .warning}
-
 <img src="../fig/rmd-01-outputViolinPlot-1.png" width="540" style="display: block; margin: auto;" />
 
 We can also add changes to the plot. Let's say we want our boxplot to have the black-and-white theme:
@@ -1812,13 +1650,6 @@ We can also add changes to the plot. Let's say we want our boxplot to have the b
 box_plot + theme_bw()
 ~~~
 {: .language-r}
-
-
-
-~~~
-Warning: Removed 1 row containing non-finite outside the scale range (`stat_boxplot()`).
-~~~
-{: .warning}
 
 <img src="../fig/rmd-01-violinPlotBWTheme-1.png" width="540" style="display: block; margin: auto;" />
 
@@ -1830,13 +1661,6 @@ box_plot
 ~~~
 {: .language-r}
 
-
-
-~~~
-Warning: Removed 1 row containing non-finite outside the scale range (`stat_boxplot()`).
-~~~
-{: .warning}
-
 <img src="../fig/rmd-01-violinPlotBWThemeUpdated-1.png" width="540" style="display: block; margin: auto;" />
 
 ~~~
@@ -1845,13 +1669,6 @@ box_plot <- box_plot + theme_bw()
 box_plot
 ~~~
 {: .language-r}
-
-
-
-~~~
-Warning: Removed 1 row containing non-finite outside the scale range (`stat_boxplot()`).
-~~~
-{: .warning}
 
 <img src="../fig/rmd-01-violinPlotBWThemeUpdated-2.png" width="540" style="display: block; margin: auto;" />
 
@@ -1878,13 +1695,6 @@ ggsave("awesome_box_plot.jpg", plot = box_plot, width=6, height=4)
 > > ggsave("my_awesome_plot.jpg", plot = my_plot, width=6, height=4)
 > > ~~~
 > > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > Warning: Removed 1 row containing non-finite outside the scale range (`stat_boxplot()`).
-> > ~~~
-> > {: .warning}
 > {: .solution}
 {: .challenge}
 

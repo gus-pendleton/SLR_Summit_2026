@@ -110,4 +110,3 @@ Some more advanced R coding topics include:
 
 We encourage you to investigate domain-specific packages and software that will help you perform specific tasks related to your own research. The best way to find these packages is to either ask other people in your field and/or search for specific tasks that you would like to perform. If you'd like to perform the task in R, include that in your search (e.g. "find pairwise distances for DNA sequences in R" will help you find the R package `ape` which has a number of functions to perform phylogenetic and evolutionary analyses in R.)
 
-{% include links.md %}

@@ -6,22 +6,20 @@ permalink: index.html  # Is the only page that doesn't follow the pattern /:path
 
 {% include gh_variables.html %}
 
-This is a custom curriculum for Carpentries workshops at Cornell which is borrowed and adapted from lessons by the University of Michigan Carpentries.
+This is a custom curriculum which uses data from the Lake Superior National Estuarine Research Reserve 
+to teach data visualization with ggplot2. This lesson was developed by Augustus Pendleton, but 
+draws on material adapted from lessons by the University of Michigan Carpentries.
 While it is based on The Carpentries curriculum and teaching practices, 
 it is not officially overseen by The Carpentries organization. 
 We welcome any feedback or questions to us through 
-[GitHub](https://github.com/MarschmiLab/Cornell_Carpentries_Jan2025). 
+[GitHub](https://github.com/gus-pendleton/SLR_Summit_2026). 
 
 The curriculum is developed for complete beginners interested in 
-learning reproducible data science techniques and integrates instruction 
-of R for data cleaning, analysis, and visualization; the Unix shell; and 
-git and GitHub. For more details, please see 
+learning reproducible data science techniques and data visualization. For more details, please see 
 [Introduction to the Workshop]({{ page.root }}/00-intro). 
 
-If you are interested in contributing to the curriculum, please read over 
-[The Carpentries Curriculum Development Handbook](https://carpentries.github.io/curriculum-development/) 
-and [our contribution guidelines][contributing]. If you would like to set 
-up your machine to preview changes locally,
-please see [the setup instructions]({{ page.root }}{% link setup.md %}).
+This lesson is a subset of a larger, two-day workshop which includes data cleaning,
+RMarkdown, and basic statistics. We encourage learners who enjoyed this lesson 
+to view these additional lessons [here](https://marschmilab.github.io/Cornell_Carpentries_Curriculum/index.html).
 
 {% include links.md %}

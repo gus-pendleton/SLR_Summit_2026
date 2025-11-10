@@ -15,16 +15,16 @@ $color-output:      #303030 !default;
 $color-source:      #360084 !default;
 
 // blockquotes
-$color-callout:     #f4fd9c !default;
+$color-callout:     #fc8dc1 !default;
 $color-caution:     #cf000e !default;
-$color-challenge:   #eec275 !default;
+$color-challenge:   #5DBBDB !default;
 $color-checklist:   #dfd2a0 !default;
 $color-discussion:  #eec275 !default;
 $color-keypoints:   #7ae78e !default;
-$color-objectives:  #daee84 !default;
+$color-objectives:  #9cd6dc !default;
 $color-prereq:      #9cd6dc !default;
-$color-solution:    #ded4b9 !default;
-$color-testimonial: #fc8dc1 !default;
+$color-solution:    #C5D916 !default;
+$color-testimonial: #A066E1 !default;
 
 //----------------------------------------
 // Specialized code blocks.
@@ -198,16 +198,16 @@ $codeblock-padding: 5px !default;
 font-size: 18px;
 }
 
-.challenge    { background-color: #eec27520; }
-.callout      { background-color: #f4fd9c20; }
-.challenge    { background-color: #eec27520; }
+.challenge    { background-color: #5DBBDB20; }
+.callout      { background-color: #fc8dc120; }
+.challenge    { background-color: #5DBBDB20; }
 .checklist    { background-color: #dfd2a020; }
 .discussion   { background-color: #eec27520; }
 .keypoints    { background-color: #7ae78e20; }
-.objectives   { background-color: #daee8420; }
+.objectives   { background-color: #9cd6dc20; }
 .prereq       { background-color: #9cd6dc20; }
-.solution     { background-color: #ded4b94d; }
-.testimonial  { background-color: #fc8dc120; }
+.solution     { background-color: #C5D91620; }
+.testimonial  { background-color: #A066E120; }
 
 blockquote p {
     margin: 5px;
