@@ -5,7 +5,7 @@
 
 This is a version of the University of Michigan Carpentries curriculum adapted for Cornell Microbiology data science workshops.
 
-The rendered website can be found [here](https://gus-pendleton.github.io/intro-curriculum-r/).
+The rendered website can be found [here](https://gus-pendleton.github.io/SLR_Summit_2026/).
 
 ## Repo Layout
 
