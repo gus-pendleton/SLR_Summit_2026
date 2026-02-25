@@ -9,7 +9,7 @@ title: Setup
     - [RStudio](https://rstudio.com/), an integrated development environment for R
     - `tidyverse` package, a collection of functions we'll use throughout the workshop
 
-1. After you have installed everything above, download [nerr_data.zip](https://github.com/gus-pendleton/SLR_Summit_2026/raw/refs/heads/gh_pages/files/nerr_data.zip). You'll need the files included during the workshop.
+1. After you have installed everything above, download [nerr_data.zip](https://github.com/gus-pendleton/SLR_Summit_2026/raw/refs/heads/gh-pages/files/nerr_data.zip). You'll need the files included during the workshop.
     1. Move `nerr_data.zip` to your Desktop and unzip it (double-clicking on Macs; right-click and "Extract All" on Windows).
         -  Note: In Windows, by default files will be unzipped into a folder called "nerr_data" within _another_ folder called "nerr_data". To prevent this, when asked where to extract, remove the "nerr_data" that shows up after Desktop, so that the file path looks something like "C\Users\your.username\Desktop". Alternatively, you can copy the files in the "inside" nerr_data folder to the "outside" nerr_data folder and then safely delete that empty folder.
     1. Start up **RStudio**. In the upper left menu, select `File` > `Open`. In the window that opens, go to the `nerr_data/` folder on your Desktop and select the file `check_setup.R` to open it in RStudio.
