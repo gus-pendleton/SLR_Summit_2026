@@ -177,13 +177,62 @@ library(tidyverse)
 
 
 ~~~
-── Attaching core tidyverse packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
+Warning: package 'ggplot2' was built under R version 4.5.2
+~~~
+{: .warning}
+
+
+
+~~~
+Warning: package 'tibble' was built under R version 4.5.2
+~~~
+{: .warning}
+
+
+
+~~~
+Warning: package 'tidyr' was built under R version 4.5.2
+~~~
+{: .warning}
+
+
+
+~~~
+Warning: package 'readr' was built under R version 4.5.2
+~~~
+{: .warning}
+
+
+
+~~~
+Warning: package 'purrr' was built under R version 4.5.2
+~~~
+{: .warning}
+
+
+
+~~~
+Warning: package 'dplyr' was built under R version 4.5.2
+~~~
+{: .warning}
+
+
+
+~~~
+Warning: package 'lubridate' was built under R version 4.5.2
+~~~
+{: .warning}
+
+
+
+~~~
+── Attaching core tidyverse packages ──────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.2.0     ✔ readr     2.2.0
 ✔ forcats   1.0.1     ✔ stringr   1.6.0
-✔ ggplot2   4.0.0     ✔ tibble    3.3.0
-✔ lubridate 1.9.4     ✔ tidyr     1.3.1
-✔ purrr     1.2.0     
-── Conflicts ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+✔ ggplot2   4.0.2     ✔ tibble    3.3.1
+✔ lubridate 1.9.5     ✔ tidyr     1.3.2
+✔ purrr     1.2.1     
+── Conflicts ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()
 ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
@@ -241,7 +290,7 @@ water_quality <- read_csv("water_quality.csv")
 
 ~~~
 Rows: 306 Columns: 9
-── Column specification ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+── Column specification ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 Delimiter: ","
 chr (1): Station
 dbl (8): Year, DayofYear, Temp, Conductivity, DO, pH, Turbidity, ChlFluor
@@ -350,7 +399,8 @@ read_csv()
 
 
 ~~~
-Error in read_csv(): argument "file" is missing, with no default
+Error in `read_csv()`:
+! argument "file" is missing, with no default
 ~~~
 {: .error}
 
@@ -393,7 +443,7 @@ Sys.Date()
 
 
 ~~~
-[1] "2025-11-10"
+[1] "2026-02-25"
 ~~~
 {: .output}
 
@@ -452,7 +502,8 @@ read_csv(file = 'water_quality.csv')
 {: .language-r}
 
 ~~~
-Error: 'data/water_quality.csv' does not exist in current working directory ('/Users/augustuspendleton/Desktop/Coding/Carpentries_Workshops/SLR_Summit_Workshop/_episodes_rmd').
+Error:
+! 'data/water_quality.csv' does not exist in current working directory: '/Users/augustuspendleton/Local_Desktop/SLR_Summit_2026/_episodes_rmd'.
 ~~~
 {: .error}
 
@@ -491,7 +542,7 @@ Sometimes it is helpful - or even necessary - to include the argument name, but 
 > 
 > 
 > ~~~
-> [1] "2025-11-10"
+> [1] "2026-02-25"
 > ~~~
 > {: .output}
 > 
@@ -505,7 +556,7 @@ Sometimes it is helpful - or even necessary - to include the argument name, but 
 > 
 > 
 > ~~~
-> [1] "/Users/augustuspendleton/Desktop/Coding/Carpentries_Workshops/SLR_Summit_Workshop/_episodes_rmd"
+> [1] "/Users/augustuspendleton/Local_Desktop/SLR_Summit_2026/_episodes_rmd"
 > ~~~
 > {: .output}
 > 
@@ -530,7 +581,7 @@ Sometimes it is helpful - or even necessary - to include the argument name, but 
 > 
 > ~~~
 > Rows: 306 Columns: 9
-> ── Column specification ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+> ── Column specification ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 > Delimiter: ","
 > chr (1): Station
 > dbl (8): Year, DayofYear, Temp, Conductivity, DO, pH, Turbidity, ChlFluor
@@ -577,7 +628,7 @@ ggplot(data=water_quality)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-ggplotDataOnly-1.png" width="540" style="display: block; margin: auto;" />
+<img src="../fig/rmd-01-ggplotDataOnly-1.png" alt="" width="540" style="display: block; margin: auto;" />
 
 To run code that you've typed in the editor, you have a few options. Remember
 that the quickest way to run the code is by pressing
@@ -615,7 +666,7 @@ ggplot(data = water_quality) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-ggplotX-1.png" width="540" style="display: block; margin: auto;" />
+<img src="../fig/rmd-01-ggplotX-1.png" alt="" width="540" style="display: block; margin: auto;" />
 
 Note that we've added this new function call to a second line just to make it
 easier to read. To do this we make sure that the `+` is at the end of the first
@@ -636,7 +687,7 @@ ggplot(data = water_quality) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-FirstPlotAddXLabel-1.png" width="540" style="display: block; margin: auto;" />
+<img src="../fig/rmd-01-FirstPlotAddXLabel-1.png" alt="" width="540" style="display: block; margin: auto;" />
 
 OK. That looks better. 
 
@@ -668,7 +719,7 @@ OK. That looks better.
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-01-FirstPlotAddY-1.png" width="540" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-01-FirstPlotAddY-1.png" alt="" width="540" style="display: block; margin: auto;" />
 > > {: .source}
 > {: .solution}
 {: .challenge}
@@ -693,7 +744,7 @@ ggplot(data = water_quality) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-FirstPlotAddPoints-1.png" width="540" style="display: block; margin: auto;" />
+<img src="../fig/rmd-01-FirstPlotAddPoints-1.png" alt="" width="540" style="display: block; margin: auto;" />
 
 Now we're really getting somewhere. It finally looks like a proper plot!  We can
 now see a trend in the data. It looks like samples with a higher temperature tend to
@@ -713,7 +764,7 @@ ggplot(data = water_quality) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-FirstPlotAddTitle-1.png" width="540" style="display: block; margin: auto;" />
+<img src="../fig/rmd-01-FirstPlotAddTitle-1.png" alt="" width="540" style="display: block; margin: auto;" />
 
 No one can deny we've made a very handsome plot! But now looking at the data, we
 might be curious about learning more - for example, we know these data were taken at four different stations. Maybe we are curious if the trend between temperature and oxygen is consistent between these stations. One thing we
@@ -733,7 +784,7 @@ ggplot(data = water_quality) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-FirstPlotAddColor-1.png" width="540" style="display: block; margin: auto;" />
+<img src="../fig/rmd-01-FirstPlotAddColor-1.png" alt="" width="540" style="display: block; margin: auto;" />
 
 Here we can see that Pokegama samples consistently have lower oxygen than the other stations. Notice that when we add a mapping for
 color, ggplot automatically provided a legend for us. It took care of assigning
@@ -755,7 +806,7 @@ ggplot(data = water_quality) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-FirstPlotAddSize-1.png" width="540" style="display: block; margin: auto;" />
+<img src="../fig/rmd-01-FirstPlotAddSize-1.png" alt="" width="540" style="display: block; margin: auto;" />
 
 Interesting - Pokegama also has relatively high turbidity compared to the other stations. We got another legend here for size
 which is nice, but the titles aren't very informative. Let's change those, using another calls to `labs()`
@@ -776,7 +827,7 @@ ggplot(data = water_quality) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-FirstPlotAddTurbidity-1.png" width="540" style="display: block; margin: auto;" />
+<img src="../fig/rmd-01-FirstPlotAddTurbidity-1.png" alt="" width="540" style="display: block; margin: auto;" />
 
 While we're at it, maybe I want our DO units to be in g/L, rather than mg. Let's change it by dividing our `DO` by 1,000 and updating our axis title to match.
 
@@ -796,7 +847,7 @@ ggplot(data = water_quality) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-FirstPlotNiceYAxis-1.png" width="540" style="display: block; margin: auto;" />
+<img src="../fig/rmd-01-FirstPlotNiceYAxis-1.png" alt="" width="540" style="display: block; margin: auto;" />
 
 This works because you can treat the columns in the aesthetic mappings just like
 any other variables and can use functions to transform or change them at plot
@@ -831,7 +882,7 @@ the plot in its own window.
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-01-Shape-1.png" width="540" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-01-Shape-1.png" alt="" width="540" style="display: block; margin: auto;" />
 > > {: .source}
 > {: .solution}
 {: .challenge}
@@ -858,7 +909,7 @@ ggplot(data = water_quality) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-FirstPlotCondensed-1.png" width="540" style="display: block; margin: auto;" />
+<img src="../fig/rmd-01-FirstPlotCondensed-1.png" alt="" width="540" style="display: block; margin: auto;" />
 
 ## Importing additional datasets
 _[Back to top](#contents)_
@@ -941,7 +992,7 @@ head(water_quality_oliver)
 > {: .language-r}
 >
 > > ## Solution
-> > <img src="../fig/rmd-01-PlotFullGapmindersolutions-1.png" width="540" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-01-PlotFullGapmindersolutions-1.png" alt="" width="540" style="display: block; margin: auto;" />
 > {: .solution}
 > 
 {: .challenge}
@@ -983,7 +1034,7 @@ ggplot(data = water_quality_oliver) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-GapMinderLinePlotBad-1.png" width="540" style="display: block; margin: auto;" />
+<img src="../fig/rmd-01-GapMinderLinePlotBad-1.png" alt="" width="540" style="display: block; margin: auto;" />
 
 Hmm. This doesn't look right. We have data from 2022, 2023, and 2024, so ideally we should see a line from each. We need to tell ggplot this, specificallly - otherwise it is just connecting each dot by its order on the x-axis. We'll do this use the "group" argument.
 
@@ -995,7 +1046,7 @@ ggplot(data = water_quality_oliver) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-GapMinderLinePlot-1.png" width="540" style="display: block; margin: auto;" />
+<img src="../fig/rmd-01-GapMinderLinePlot-1.png" alt="" width="540" style="display: block; margin: auto;" />
 
 That's looking much better! Realistically, we probably want to see which year each line corresponds to. Let's add the `color` aesthetic to tell ggplot to change the line color. 
 
@@ -1007,7 +1058,7 @@ ggplot(data = water_quality_oliver) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-GapMinderLinePlotcolors-1.png" width="540" style="display: block; margin: auto;" />
+<img src="../fig/rmd-01-GapMinderLinePlotcolors-1.png" alt="" width="540" style="display: block; margin: auto;" />
 
 That's looking good! Real quick, though, something looks a little funky. Ggplot seems to be treating out the `Year` variable as a continuous variable (notice the gradient color scale), rather than as three discrete groups. Just as we modified our DO argument above, we can convert Year to a factor "on the fly" to tell R this is a categorical variable. 
 
@@ -1019,7 +1070,7 @@ ggplot(data = water_quality_oliver) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-GapMinderLinePlotfactors-1.png" width="540" style="display: block; margin: auto;" />
+<img src="../fig/rmd-01-GapMinderLinePlotfactors-1.png" alt="" width="540" style="display: block; margin: auto;" />
 
 Excellent :) 
 
@@ -1036,7 +1087,7 @@ Excellent :)
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-01-gapminderMoreLines-1.png" width="540" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-01-gapminderMoreLines-1.png" alt="" width="540" style="display: block; margin: auto;" />
 > >
 > {: .solution}
 {: .challenge}
@@ -1056,7 +1107,7 @@ ggplot(data = water_quality) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-GapNoFacet-1.png" width="540" style="display: block; margin: auto;" />
+<img src="../fig/rmd-01-GapNoFacet-1.png" alt="" width="540" style="display: block; margin: auto;" />
 
 Hmmm - this is a mess. That's because each year's line is bouncing around between points from all four stations.
 
@@ -1071,7 +1122,7 @@ ggplot(data = water_quality) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-GapFacetWrap-1.png" width="540" style="display: block; margin: auto;" />
+<img src="../fig/rmd-01-GapFacetWrap-1.png" alt="" width="540" style="display: block; margin: auto;" />
 
 Note that `facet_wrap` requires this `~` in order to pass in the column names. You can interpret the `~` as "facet **by** this. We can see in this output that we get a separate box with a label for each station so that only the lines for the station are in that box. Now it is much easier to see trends in our data! We see that the increase in conductivity, caused by moderate drought in 2023, is especially clear at Oliver Bridge and Pokegama.
 
@@ -1088,7 +1139,7 @@ Note that `facet_wrap` requires this `~` in order to pass in the column names. Y
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-01-GapLifeDens4-1.png" width="540" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-01-GapLifeDens4-1.png" alt="" width="540" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
@@ -1103,7 +1154,7 @@ ggplot(data = water_quality) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-GapFacetGrid-1.png" width="540" style="display: block; margin: auto;" />
+<img src="../fig/rmd-01-GapFacetGrid-1.png" alt="" width="540" style="display: block; margin: auto;" />
 
 Unlike the `facet_wrap` output where each box got its own x and y axis, with `facet_grid()`, there is only one x axis along the bottom. We also used the function `vars()` to make it clear we're referencing the column `Station`.
 
@@ -1182,7 +1233,7 @@ We've previously used the discrete values of the `Station` column to color our p
 > > ~~~
 > > {: .warning}
 > > 
-> > <img src="../fig/rmd-01-GapBox-1.png" width="540" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-01-GapBox-1.png" alt="" width="540" style="display: block; margin: auto;" />
 > > Good job! Note that there was one warning, saying that one row was removed. This is because one of the rows has `NA`, which is R's word for missing data. 
 > > This is a case where the warning was helpful (we know at least one datapoint was removed/missing), but we don't need to do anything else about it. 
 > > If you had a warning that many rows were removed, that would be a good time to look more closely at your data!
@@ -1203,7 +1254,7 @@ This type of visualization makes it easy to compare the range and spread of valu
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-01-GapViol-1.png" width="540" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-01-GapViol-1.png" alt="" width="540" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
@@ -1220,7 +1271,7 @@ ggplot(data = september_nutrients) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-GapViolin-1.png" width="540" style="display: block; margin: auto;" />
+<img src="../fig/rmd-01-GapViolin-1.png" alt="" width="540" style="display: block; margin: auto;" />
 
 Box plots are a great way to see the overall spread of your data. However, it is good practice to also give your reader as sense of how many observations have gone into your boxplots. To do so, we can plot each observation as an individual point, on top of the boxplot.
 
@@ -1233,7 +1284,7 @@ ggplot(data = september_nutrients) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-GapViolinPoints-1.png" width="540" style="display: block; margin: auto;" />
+<img src="../fig/rmd-01-GapViolinPoints-1.png" alt="" width="540" style="display: block; margin: auto;" />
 
 Ok, we've drawn the points but most of them stack up on top of each other. One way to make it easier to see all the data is to "jitter" the points, or move them around randomly so they don't stack up on top of each other. To do this, we use `geom_jitter` rather than `geom_point`
 
@@ -1246,7 +1297,7 @@ ggplot(data = september_nutrients) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-GapViolinJitter-1.png" width="540" style="display: block; margin: auto;" />
+<img src="../fig/rmd-01-GapViolinJitter-1.png" alt="" width="540" style="display: block; margin: auto;" />
 
 Good for us to keep in mind that Barkers has many more observations than the other stations. Be aware that these movements are random so your plot will look a bit different each time you run it!
 
@@ -1261,7 +1312,7 @@ ggplot(data = september_nutrients) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-GapViolinJitterLayers-1.png" width="540" style="display: block; margin: auto;" />
+<img src="../fig/rmd-01-GapViolinJitterLayers-1.png" alt="" width="540" style="display: block; margin: auto;" />
 
 Since we plot the `geom_jitter` layer first, the  boxplot layer is placed on top of the `geom_jitter` layer, so we cannot see most of the points.
 
@@ -1276,7 +1327,7 @@ ggplot(data = september_nutrients) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-GapViolinJitter2-1.png" width="540" style="display: block; margin: auto;" />
+<img src="../fig/rmd-01-GapViolinJitter2-1.png" alt="" width="540" style="display: block; margin: auto;" />
 
 We could do the same thing by passing the values to the `ggplot()` function call as is sometimes more common:
 
@@ -1288,7 +1339,7 @@ ggplot(data = september_nutrients, mapping = aes(x = Station, y = Chl_a)) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-GapViolinJitterinside-1.png" width="540" style="display: block; margin: auto;" />
+<img src="../fig/rmd-01-GapViolinJitterinside-1.png" alt="" width="540" style="display: block; margin: auto;" />
 
 However, we can also use aesthetic values for only one layer of our plot. To do that, you an place an additional `aes()` inside of that layer. For example, what if we want to change the color for the points so they are scaled by phosphate, but we don't want to change the box plot? We can do:
 
@@ -1301,7 +1352,7 @@ ggplot(data = september_nutrients) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-GapViolinJitterAes-1.png" width="540" style="display: block; margin: auto;" />
+<img src="../fig/rmd-01-GapViolinJitterAes-1.png" alt="" width="540" style="display: block; margin: auto;" />
 
 Both `geom_boxplot` and `geom_jitter` will inherit the default values of `aes(Station, Chl_a)` but only `geom_jitter` will also use `aes(color = PO4)`.
 
@@ -1346,7 +1397,7 @@ ggplot(data = september_nutrients) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-GapViolinColor-1.png" width="540" style="display: block; margin: auto;" />
+<img src="../fig/rmd-01-GapViolinColor-1.png" alt="" width="540" style="display: block; margin: auto;" />
 
 Well, that didn't get all that colorful. That's because objects like these boxplots have two different parts that have a color: the shape outline, and the inner part of the shape. For geoms that have an inner part, you change the fill color with `fill=` rather than `color=`, so let's try that instead
 
@@ -1358,7 +1409,7 @@ ggplot(data = september_nutrients) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-GapViolinFill-1.png" width="540" style="display: block; margin: auto;" />
+<img src="../fig/rmd-01-GapViolinFill-1.png" alt="" width="540" style="display: block; margin: auto;" />
 
 That's some plot now isn't it! So "pink" maybe wasn't the prettiest color. R knows lots of color names. You can see the full list if you run `colors()` in the console. Since there are so many, you can randomly choose 10 if you run `sample(colors(), size = 10)`.
 
@@ -1377,7 +1428,7 @@ ggplot(data = september_nutrients) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-GapViolinFillMap-1.png" width="540" style="display: block; margin: auto;" />
+<img src="../fig/rmd-01-GapViolinFillMap-1.png" alt="" width="540" style="display: block; margin: auto;" />
 
 But what if we want to specify specific colors for our plots? The colors that
 ggplot uses are determined by the color "scale". Each aesthetic value we can
@@ -1393,7 +1444,7 @@ ggplot(data = september_nutrients) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-GapViolinFillMan-1.png" width="540" style="display: block; margin: auto;" />
+<img src="../fig/rmd-01-GapViolinFillMan-1.png" alt="" width="540" style="display: block; margin: auto;" />
 
 Sometimes manually choosing colors is frustrating. There are many packages which produce pre-made palettes which you can supply to your data. A common one is `RColorBrewer`. We can use the palettes from RColorBrewer using the `scale_color_brewer` function. 
 
@@ -1406,7 +1457,7 @@ ggplot(data = september_nutrients) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-GapViolinFillBrew-1.png" width="540" style="display: block; margin: auto;" />
+<img src="../fig/rmd-01-GapViolinFillBrew-1.png" alt="" width="540" style="display: block; margin: auto;" />
 
 The `scale_color_brewer()` function is just one of many you can use to change
 colors. There are bunch of "palettes" that are built-in. You can view them all
@@ -1441,7 +1492,7 @@ There are also lots of other fun options:
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-01-Color-1.png" width="540" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-01-Color-1.png" alt="" width="540" style="display: block; margin: auto;" />
 > > {: .source}
 > {: .solution}
 {: .challenge}
@@ -1457,7 +1508,7 @@ There are also lots of other fun options:
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-01-GapViolinFillSoln-1.png" width="540" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-01-GapViolinFillSoln-1.png" alt="" width="540" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
@@ -1471,7 +1522,7 @@ There are also lots of other fun options:
 > ~~~
 > {: .language-r}
 > 
-> <img src="../fig/rmd-01-GapViolinAesFillMap-1.png" width="540" style="display: block; margin: auto;" />
+> <img src="../fig/rmd-01-GapViolinAesFillMap-1.png" alt="" width="540" style="display: block; margin: auto;" />
 > Why doesn't this work? How can you fix it? Where does that color come from?
 >
 > > ## Solution
@@ -1499,7 +1550,7 @@ ggplot(september_nutrients) +
 ~~~
 {: .output}
 
-<img src="../fig/rmd-01-GapLifeHist-1.png" width="540" style="display: block; margin: auto;" />
+<img src="../fig/rmd-01-GapLifeHist-1.png" alt="" width="540" style="display: block; margin: auto;" />
 
 You should not only see the plot in the plot window, but also a message telling you to choose a better bin value. Histograms can look very different depending on the number of bars you decide to draw. The default is 30. Let's try setting a different value by explicitly passing a `bin=` argument to the `geom_histogram` later.
 
@@ -1511,7 +1562,7 @@ ggplot(september_nutrients) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-GapLifeHistBins-1.png" width="540" style="display: block; margin: auto;" />
+<img src="../fig/rmd-01-GapLifeHistBins-1.png" alt="" width="540" style="display: block; margin: auto;" />
 
 Try different values like 5 or 50 to see how the plot changes.
 
@@ -1527,7 +1578,7 @@ Try different values like 5 or 50 to see how the plot changes.
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-01-GapLifeDens1-1.png" width="540" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-01-GapLifeDens1-1.png" alt="" width="540" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
@@ -1543,7 +1594,7 @@ Try different values like 5 or 50 to see how the plot changes.
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-01-GapLifeDens2-1.png" width="540" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-01-GapLifeDens2-1.png" alt="" width="540" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
@@ -1562,7 +1613,7 @@ ggplot(data = september_nutrients) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-GapLifeHistBinsClassicTheme-1.png" width="540" style="display: block; margin: auto;" />
+<img src="../fig/rmd-01-GapLifeHistBinsClassicTheme-1.png" alt="" width="540" style="display: block; margin: auto;" />
 
 Try out a few other themes, to see which you like: `theme_bw()`, `theme_linedraw()`, `theme_minimal()`.
 
@@ -1579,7 +1630,7 @@ Try out a few other themes, to see which you like: `theme_bw()`, `theme_linedraw
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-01-GapLifeDens3-1.png" width="540" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-01-GapLifeDens3-1.png" alt="" width="540" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
@@ -1612,7 +1663,7 @@ ggsave("awesome_plot.jpg", width=6, height=4)
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-01-savingPlotExercise-1.png" width="540" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-01-savingPlotExercise-1.png" alt="" width="540" style="display: block; margin: auto;" />
 > > 
 > > ~~~
 > > ggsave("awesome_histogram.jpg", width=6, height=4)
@@ -1641,7 +1692,7 @@ box_plot
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-outputViolinPlot-1.png" width="540" style="display: block; margin: auto;" />
+<img src="../fig/rmd-01-outputViolinPlot-1.png" alt="" width="540" style="display: block; margin: auto;" />
 
 We can also add changes to the plot. Let's say we want our boxplot to have the black-and-white theme:
 
@@ -1651,7 +1702,7 @@ box_plot + theme_bw()
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-violinPlotBWTheme-1.png" width="540" style="display: block; margin: auto;" />
+<img src="../fig/rmd-01-violinPlotBWTheme-1.png" alt="" width="540" style="display: block; margin: auto;" />
 
 Watch out! Adding the theme does not change the `box_plot` object! If we want to change the object, we need to store our changes:
 
@@ -1661,7 +1712,7 @@ box_plot
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-violinPlotBWThemeUpdated-1.png" width="540" style="display: block; margin: auto;" />
+<img src="../fig/rmd-01-violinPlotBWThemeUpdated-1.png" alt="" width="540" style="display: block; margin: auto;" />
 
 ~~~
 box_plot <- box_plot + theme_bw()
@@ -1670,7 +1721,7 @@ box_plot
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-01-violinPlotBWThemeUpdated-2.png" width="540" style="display: block; margin: auto;" />
+<img src="../fig/rmd-01-violinPlotBWThemeUpdated-2.png" alt="" width="540" style="display: block; margin: auto;" />
 
 We can also save any plot object we have named, even if they were not the plot that we ran most recently. We just have to tell `ggsave()` which plot we want to save:
 
